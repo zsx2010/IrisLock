@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGray">#ebebeb</color>
+    <color name="colorBlue">#6ebdc5</color>
+    <color name="colorIngigo">#0b545b</color>
+    <color name="colorRed">#ff3636</color>
+
+    <color name="colorEditText">#0b5b1e</color>
+    <color name="colorText">#aaaaaa</color>
+
+    <color name="colorRegisterButton">#979797</color>
+
+    <color name="colorButtonBar">#343434</color>
 </resources>

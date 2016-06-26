@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="debug"><source path="C:\Users\suiyue\IrisLock\ZBLibrary\build\intermediates\bundles\debug\assets"><file name="city.db" path="C:\Users\suiyue\IrisLock\ZBLibrary\build\intermediates\bundles\debug\assets\city.db"/></source></dataSet><dataSet config="main"><source path="C:\Users\suiyue\IrisLock\ZBLibrary\src\androidTest\assets"/><source path="C:\Users\suiyue\IrisLock\ZBLibrary\build\generated\assets\shaders\androidTest\debug"/></dataSet></merger>

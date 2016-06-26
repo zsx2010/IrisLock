@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">IrisLock</string>
+    <string name="wifiConnected">智能门锁Wifi已连接</string>
+    <string name="wifiUnConnected">智能门锁Wifi未连接</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="name">姓名：</string>
+    <string name="phone">手机：</string>
+    <string name="address">地区：</string>
+    <string name="choose">请选择</string>
+    <string name="street">街道：</string>
+
+    <string name="state">点击“注册”按钮表示您已同意</string>
+    <string name="state_link">《虹娘科技软件许可及服务协议》</string>
+    <string name="adminRegister">管理员注册</string>
+    <string name="company">北京虹娘科技有限公司</string>
+    <string name="alert">报警信息</string>
+    <string name="admin">管理员</string>
+    <string name="authorization">远程授权</string>
+    <string name="state_safe">您的家很安全</string>
+    <string name="edit">编辑</string>
+    <string name="alertInfo">报警信息</string>
+    <string name="delete">删除</string>
 </resources>

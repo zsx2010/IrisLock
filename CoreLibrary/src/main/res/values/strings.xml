@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CoreLibrary</string>
+    <string name="string_empty">""</string>
+
+
+
+    <!-- Dialog -->
+    <string name="dialog_wait_msg_default">Loading&#8230;</string>
+</resources>

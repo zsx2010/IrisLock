@@ -2,4 +2,28 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="title_height">44dp</dimen>
+    <dimen name="button_width">256dp</dimen>
+    <dimen name="button_height">43dp</dimen>
+    <dimen name="alert_height">70dp</dimen>
+    <dimen name="remote_height">140dp</dimen>
+    <dimen name="admin_height">55dp</dimen>
+    <dimen name="monitor_height">140dp</dimen>
+    <dimen name="list_space">10dp</dimen>
+    <dimen name="button_space">25dp</dimen>
+    <dimen name="button_bottom_margin">100dp</dimen>
+    <dimen name="register_logo_top_margin">78dp</dimen>
+    <dimen name="home_logo_top_margin">65dp</dimen>
+    <dimen name="list_logo_bottom_margin">15dp</dimen>
+    <dimen name="list_item_logo_space">20dp</dimen>
+    <dimen name="left_margin">20dp</dimen>
+
+    <!--字体大小-->
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_standard">15sp</dimen>
+    <dimen name="text_size_date">24sp</dimen>
+    <dimen name="text_size_power">18sp</dimen>
+    <dimen name="text_size_little">12sp</dimen>
+
 </resources>

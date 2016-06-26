@@ -7,17 +7,82 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
 
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+
+
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
     }
+
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+
+
+subprojects {
+    afterEvaluate { Project project ->
+        ext.pluginContainer = project.getPlugins()
+        def hasAppPlugin = ext.pluginContainer.hasPlugin("com.android.application")
+        def hasLibPlugin = ext.pluginContainer.hasPlugin("com.android.library")
+        if (hasAppPlugin || hasLibPlugin) {
+            android {
+                compileSdkVersion COMPILE_SDK_VERSION as int
+                buildToolsVersion BUILD_TOOLS_VERSION
+
+                defaultConfig {
+                    minSdkVersion MIN_SDK_VERSION as int
+                    targetSdkVersion COMPILE_SDK_VERSION as int
+                    versionCode VERSION_CODE as int
+                    versionName VERSION_NAME
+
+                }
+
+                buildTypes {
+                    release {
+                        debuggable false
+                        minifyEnabled false
+                        proguardFile getDefaultProguardFile('proguard-android.txt')
+                    }
+                    debug {
+                        debuggable true
+                        minifyEnabled false
+                    }
+                }
+
+                lintOptions {
+                    abortOnError false
+                }
+
+                packagingOptions {
+                    exclude 'META-INF/DEPENDENCIES.txt'
+                    exclude 'META-INF/LICENSE.txt'
+                    exclude 'META-INF/NOTICE.txt'
+                    exclude 'META-INF/NOTICE'
+                    exclude 'META-INF/LICENSE'
+                    exclude 'META-INF/DEPENDENCIES'
+                    exclude 'META-INF/notice.txt'
+                    exclude 'META-INF/license.txt'
+                    exclude 'META-INF/dependencies.txt'
+                    exclude 'META-INF/LGPL2.1'
+                    exclude 'META-INF/ASL2.0'
+                }
+
+            }
+
+            dependencies {
+                compile "com.android.support:support-v4:+"
+                compile "com.android.support:support-annotations:+"
+            }
+        }
+    }
 }
