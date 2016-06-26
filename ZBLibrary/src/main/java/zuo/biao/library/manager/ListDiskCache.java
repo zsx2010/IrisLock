@@ -14,6 +14,9 @@ limitations under the License.*/
 
 package zuo.biao.library.manager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +25,6 @@ import java.util.Set;
 import zuo.biao.library.util.Json;
 import zuo.biao.library.util.Log;
 import zuo.biao.library.util.StringUtil;
-import android.content.Context;
-import android.content.SharedPreferences;
 
 /**列表缓存类
  * @author Lemon

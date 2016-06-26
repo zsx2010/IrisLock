@@ -14,10 +14,11 @@ limitations under the License.*/
 
 package zuo.biao.library.ui;
 
-import zuo.biao.library.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+
+import zuo.biao.library.R;
 
 /**限制控件最大宽度的类
  * @author Lemon
