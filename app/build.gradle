@@ -17,6 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
 }
 
 def var = dependencies {
@@ -54,6 +60,8 @@ def var = dependencies {
     compile 'com.github.alex-townsend:SwipeOpenItemTouchHelper:1.2.1'
 
     compile 'com.github.vilyever:AndroidSocketClient:2.0.3'
+
+    compile 'org.greenrobot:greendao:2.2.1'
 }
 var
 dependencies {

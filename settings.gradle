@@ -1,1 +1,1 @@
-include ':app', ':CoreLibrary', ':IrisCommon', ':library:Common', ':library:ColorPicker', ':library:WheelPicker'
+include ':app', ':CoreLibrary', ':IrisCommon', ':library:Common', ':library:ColorPicker', ':library:WheelPicker', ':daogenerator'

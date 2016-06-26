@@ -28,6 +28,9 @@ public class JPushReceiver extends BroadcastReceiver {
             Gson gson = new Gson();
             AlertInfo alertInfo = gson.fromJson(alertString, AlertInfo.class);
             Logger.e(alertInfo.toString());
+            Intent i = new Intent(context, AlertActivity.class);  //自定义打开的界面
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             Logger.e("收到了通知");
             // 在这里可以做些统计，或者做些其他工作

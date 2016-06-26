@@ -14,16 +14,14 @@ import com.ImaginationUnlimited.library.app.mvp.BaseMVPActivity;
 import com.ImaginationUnlimited.library.app.mvp.IUI;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
-import com.wcsn.irislock.alert.bean.AlertInfo;
+import com.wcsn.irislock.app.adapter.PagerAdapter;
 import com.wcsn.irislock.utils.view.RecycleViewDivider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by suiyue on 2016/6/21 0021.
  */
-public class AlertActivity extends BaseMVPActivity<AlertPresenter> implements AlertListAdapter.DeleteCallBack{
+public class AlertActivity extends BaseMVPActivity<AlertPresenter> implements AlertListAdapter.DeleteCallBack,
+        IAlertUI{
 
     private ImageView mBackView;
     private TextView mEditView;
@@ -57,18 +55,14 @@ public class AlertActivity extends BaseMVPActivity<AlertPresenter> implements Al
         mRecyclerView.addItemDecoration(new RecycleViewDivider(getApplicationContext(),
                 RecyclerView.HORIZONTAL, 4, Color.GRAY));
 
-
-        List<AlertInfo> alertInfos = new ArrayList<>();
-
-        for (int i=0; i<9; i++) {
-            AlertInfo alertInfo = new AlertInfo();
-            alertInfo.setAlertType(i);
-            alertInfos.add(alertInfo);
-        }
-        adapter.updateList(alertInfos);
+        getPresenter().refreshAlertList();
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
 
     @Override
     protected AlertPresenter createPresenter() {
@@ -83,5 +77,11 @@ public class AlertActivity extends BaseMVPActivity<AlertPresenter> implements Al
     @Override
     public void removeItem(int position) {
         adapter.removeItem(position);
+    }
+
+
+    @Override
+    public PagerAdapter getAdapter() {
+        return adapter;
     }
 }
