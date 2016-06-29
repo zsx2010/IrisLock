@@ -8,8 +8,8 @@ import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wcsn.irislock.R;
-import com.wcsn.irislock.alert.bean.AlertInfo;
 import com.wcsn.irislock.app.adapter.AHolder;
+import com.wcsn.irislock.bean.Alert;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
 /**
@@ -46,37 +46,37 @@ public class AlertHolder extends AHolder{
         });
     }
 
-    public void bindData(AlertInfo alertInfo, boolean isRemove, boolean isDetail) {
+    public void bindData(Alert alert, boolean isRemove, boolean isDetail) {
         if (isRemove) {
 
         } else {
             if(isDetail) {
-                if (AlertInfo.ALERT_BATTERY == alertInfo.getAlertType()) {
+                if (Alert.ALERT_BATTERY == alert.getType()) {
                     ImageLoaderFactory.getLoader(mAlertTypeView)
                             .showImage(mAlertTypeView, "res:///" + R.drawable.message_power, null);
-                } else if (AlertInfo.ALERT_OPEN_DOOR == alertInfo.getAlertType()){
+                } else if (Alert.ALERT_OPEN_DOOR == alert.getType()){
                     ImageLoaderFactory.getLoader(mAlertTypeView)
                             .showImage(mAlertTypeView, "res:///" + R.drawable.message_alert, null);
                 } else {
                     ImageLoaderFactory.getLoader(mAlertTypeView)
                             .showImage(mAlertTypeView, "res:///" + R.drawable.message_error, null);
                 }
-                mTimeText.setText(alertInfo.getTime());
-                mWeekText.setText(alertInfo.getWeek());
+                mTimeText.setText(alert.getTime());
+                mWeekText.setText(alert.getWeek());
                 mDetailText.setText("收起");
             }else {
-                if (AlertInfo.ALERT_BATTERY == alertInfo.getAlertType()) {
+                if (Alert.ALERT_BATTERY == alert.getType()) {
                     ImageLoaderFactory.getLoader(mAlertTypeView)
                             .showImage(mAlertTypeView, "res:///" + R.drawable.message_power, null);
-                } else if (AlertInfo.ALERT_OPEN_DOOR == alertInfo.getAlertType()){
+                } else if (Alert.ALERT_OPEN_DOOR == alert.getType()){
                     ImageLoaderFactory.getLoader(mAlertTypeView)
                             .showImage(mAlertTypeView, "res:///" + R.drawable.message_alert, null);
                 } else {
                     ImageLoaderFactory.getLoader(mAlertTypeView)
                             .showImage(mAlertTypeView, "res:///" + R.drawable.message_error, null);
                 }
-                mTimeText.setText(alertInfo.getTime());
-                mWeekText.setText(alertInfo.getWeek());
+                mTimeText.setText(alert.getTime());
+                mWeekText.setText(alert.getWeek());
                 mDetailText.setText("查看详情");
 
             }

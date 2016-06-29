@@ -21,4 +21,7 @@
     <string name="edit">编辑</string>
     <string name="alertInfo">报警信息</string>
     <string name="delete">删除</string>
+    <string name="adminLogin">管理员登录/注册</string>
+    <string name="visitorLogin">我是游客</string>
+    <string name="isAdmin">我是管理员</string>
 </resources>

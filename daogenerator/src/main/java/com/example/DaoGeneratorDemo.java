@@ -30,7 +30,7 @@ public class DaoGeneratorDemo {
      */
     private static void addNote(Schema schema) {
         // 一个实体（类）就关联到数据库中的一张表，此处表名为「Note」（既类名）
-        Entity note = schema.addEntity("user");
+        Entity note = schema.addEntity("Alert");
         // 你也可以重新给表命名
         // note.setTableName("NODE");
 
@@ -38,10 +38,10 @@ public class DaoGeneratorDemo {
         // 接下来你便可以设置表中的字段：
         note.addIdProperty().autoincrement();
         note.addIntProperty("type").notNull();
-        note.addStringProperty("info").notNull();
+        note.addStringProperty("alertInfo").notNull();
         note.addStringProperty("time").notNull();
         note.addStringProperty("week").notNull();
-        note.addStringProperty("image");
+        note.addStringProperty("alertImage");
 
     }
 }

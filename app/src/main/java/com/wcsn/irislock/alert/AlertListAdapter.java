@@ -11,15 +11,15 @@ import android.widget.LinearLayout;
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.mvp.model.ListModel;
 import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.wcsn.irislock.R;
-import com.wcsn.irislock.alert.bean.AlertInfo;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.app.adapter.PagerAdapter;
+import com.wcsn.irislock.bean.Alert;
 import com.wcsn.irislock.utils.ItemSlideHelper;
 
 /**
  * Created by suiyue on 2016/6/22 0022.
  */
-public class AlertListAdapter extends PagerAdapter<AlertInfo, ListModel<AlertInfo>,
+public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
         AlertHolder> implements ItemSlideHelper.Callback{
 
 
@@ -70,15 +70,15 @@ public class AlertListAdapter extends PagerAdapter<AlertInfo, ListModel<AlertInf
     }
 
     @Override
-    public ListModel<AlertInfo> initModel() {
+    public ListModel<Alert> initModel() {
 
         return new ListModel<>();
     }
 
     @Override
     public void onBindViewHolder(AlertHolder holder, int position) {
-        AlertInfo alertInfo = getCurrentItem(position);
-        holder.bindData(alertInfo, isRemove, isDetail);
+        Alert alert = getCurrentItem(position);
+        holder.bindData(alert, isRemove, isDetail);
     }
 
     @Override

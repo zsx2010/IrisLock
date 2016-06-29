@@ -1,9 +1,9 @@
 package com.wcsn.irislock.alert;
 
 import com.ImaginationUnlimited.library.app.mvp.BasePresenter;
-import com.wcsn.irislock.alert.bean.AlertInfo;
+import com.wcsn.irislock.bean.Alert;
+import com.wcsn.irislock.utils.DaoUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,20 +11,12 @@ import java.util.List;
  */
 public class AlertPresenter extends BasePresenter<IAlertUI> {
 
+    private DaoUtils mDaoUtils;
+
     public void refreshAlertList() {
-        List<AlertInfo> alertInfos = new ArrayList<>();
-
-        for (int i=0; i<9; i++) {
-            AlertInfo alertInfo = new AlertInfo();
-            alertInfo.setAlertType(i);
-            alertInfos.add(alertInfo);
-        }
-        getUI().getAdapter().updateList(alertInfos);
+        mDaoUtils = DaoUtils.getInstance(getUI().getOwnerActivity().getApplicationContext());
+        List<Alert> alerts = mDaoUtils.loadAlertAll();
+        getUI().getAdapter().updateList(alerts);
     }
 
-    public void addAlertList(AlertInfo alertInfo) {
-        List<AlertInfo> alertInfos = new ArrayList<>();
-        alertInfos.add(alertInfo);
-        getUI().getAdapter().mergeList(alertInfos);
-    }
 }

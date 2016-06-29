@@ -25,10 +25,10 @@ public class AlertDao extends AbstractDao<Alert, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Type = new Property(1, int.class, "type", false, "TYPE");
-        public final static Property Info = new Property(2, String.class, "info", false, "INFO");
+        public final static Property AlertInfo = new Property(2, String.class, "alertInfo", false, "ALERT_INFO");
         public final static Property Time = new Property(3, String.class, "time", false, "TIME");
         public final static Property Week = new Property(4, String.class, "week", false, "WEEK");
-        public final static Property Image = new Property(5, String.class, "image", false, "IMAGE");
+        public final static Property AlertImage = new Property(5, String.class, "alertImage", false, "ALERT_IMAGE");
     };
 
 
@@ -46,10 +46,10 @@ public class AlertDao extends AbstractDao<Alert, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"ALERT\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"TYPE\" INTEGER NOT NULL ," + // 1: type
-                "\"INFO\" TEXT NOT NULL ," + // 2: info
+                "\"ALERT_INFO\" TEXT NOT NULL ," + // 2: alertInfo
                 "\"TIME\" TEXT NOT NULL ," + // 3: time
                 "\"WEEK\" TEXT NOT NULL ," + // 4: week
-                "\"IMAGE\" TEXT);"); // 5: image
+                "\"ALERT_IMAGE\" TEXT);"); // 5: alertImage
     }
 
     /** Drops the underlying database table. */
@@ -68,13 +68,13 @@ public class AlertDao extends AbstractDao<Alert, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindLong(2, entity.getType());
-        stmt.bindString(3, entity.getInfo());
+        stmt.bindString(3, entity.getAlertInfo());
         stmt.bindString(4, entity.getTime());
         stmt.bindString(5, entity.getWeek());
  
-        String image = entity.getImage();
-        if (image != null) {
-            stmt.bindString(6, image);
+        String alertImage = entity.getAlertImage();
+        if (alertImage != null) {
+            stmt.bindString(6, alertImage);
         }
     }
 
@@ -90,10 +90,10 @@ public class AlertDao extends AbstractDao<Alert, Long> {
         Alert entity = new Alert( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getInt(offset + 1), // type
-            cursor.getString(offset + 2), // info
+            cursor.getString(offset + 2), // alertInfo
             cursor.getString(offset + 3), // time
             cursor.getString(offset + 4), // week
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // image
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // alertImage
         );
         return entity;
     }
@@ -103,10 +103,10 @@ public class AlertDao extends AbstractDao<Alert, Long> {
     public void readEntity(Cursor cursor, Alert entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setType(cursor.getInt(offset + 1));
-        entity.setInfo(cursor.getString(offset + 2));
+        entity.setAlertInfo(cursor.getString(offset + 2));
         entity.setTime(cursor.getString(offset + 3));
         entity.setWeek(cursor.getString(offset + 4));
-        entity.setImage(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setAlertImage(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     
     /** @inheritdoc */

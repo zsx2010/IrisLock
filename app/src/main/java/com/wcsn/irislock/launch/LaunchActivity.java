@@ -18,7 +18,7 @@ import com.vilyever.socketclient.helper.SocketClientDelegate;
 import com.vilyever.socketclient.helper.SocketPacket;
 import com.vilyever.socketclient.helper.SocketResponsePacket;
 import com.wcsn.irislock.R;
-import com.wcsn.irislock.login.RegisterActivity;
+import com.wcsn.irislock.login.AdminOrVisitorActivity;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
 import java.util.Set;
@@ -70,7 +70,7 @@ public class LaunchActivity extends BaseActivity {
                 .subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
-                        RegisterActivity.launch(LaunchActivity.this);
+                        AdminOrVisitorActivity.launch(LaunchActivity.this);
                     }
                 });
     }
