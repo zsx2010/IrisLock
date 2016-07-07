@@ -13,13 +13,14 @@ import com.ImaginationUnlimited.library.app.mvp.BaseMVPActivity;
 import com.ImaginationUnlimited.library.app.mvp.IUI;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
+import com.wcsn.irislock.app.adapter.PagerAdapter;
 import com.wcsn.irislock.utils.view.RecycleViewDivider;
 
 /**
  * Created by suiyue on 2016/7/7 0007.
  */
 public class AdminActivity extends BaseMVPActivity<AdminPresenter>
-        implements IAdminUI {
+        implements IAdminUI, AdminListAdapter.DeleteCallBack {
 
     private ImageView mBackView;
     private RecyclerView mRecyclerView;
@@ -59,11 +60,22 @@ public class AdminActivity extends BaseMVPActivity<AdminPresenter>
 
     @Override
     protected AdminPresenter createPresenter() {
-        return null;
+        return new AdminPresenter();
     }
 
     @Override
     protected IUI getUI() {
-        return null;
+        return this;
+    }
+
+    @Override
+    public void removeItem(int position) {
+        mAdapter.removeItem(position);
+    }
+
+
+    @Override
+    public PagerAdapter getAdapter() {
+        return mAdapter;
     }
 }

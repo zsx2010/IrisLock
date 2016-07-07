@@ -42,23 +42,32 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/detailText"
-            android:layout_toLeftOf="@+id/detailImage"
+        <LinearLayout
+            android:id="@+id/detailLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_size_standard"
-            android:textColor="@color/colorIngigo"
-            android:text="@string/app_name"/>
-        <ImageView
-            android:id="@+id/detailImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_keyboard_arrow_right_black_18dp"
-            android:paddingRight="@dimen/left_margin"/>
+            android:layout_marginRight="@dimen/left_margin">
+            <TextView
+                android:id="@+id/detailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_standard"
+                android:textColor="@color/colorIngigo"
+                android:text="@string/app_name"/>
+            <ImageView
+                android:id="@+id/detailImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/ic_keyboard_arrow_right_black_18dp"
+                />
+        </LinearLayout>
+
+
+
     </RelativeLayout>
     <TextView
         android:id="@+id/deleteButton"

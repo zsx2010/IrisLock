@@ -1,7 +1,10 @@
 package com.wcsn.irislock.alert;
 
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
@@ -21,6 +24,7 @@ public class AlertHolder extends AHolder{
     private TextView mWeekText;
     private TextView mDetailText;
     private ImageView mDetailView;
+    private LinearLayout mDetailLayout;
 
 
     private TextView mDeleteView;
@@ -33,8 +37,11 @@ public class AlertHolder extends AHolder{
         mWeekText = finder.find(R.id.weekText);
         mDetailText = finder.find(R.id.detailText);
         mDetailView = finder.find(R.id.detailImage);
+        mDetailLayout = finder.find(R.id.detailLayout);
 
         mDeleteView = finder.find(R.id.deleteButton);
+
+
 
         mDeleteView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,36 +57,69 @@ public class AlertHolder extends AHolder{
         if (isRemove) {
 
         } else {
-            if(isDetail) {
-                if (Alert.ALERT_BATTERY == alert.getType()) {
-                    ImageLoaderFactory.getLoader(mAlertTypeView)
-                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_power, null);
-                } else if (Alert.ALERT_OPEN_DOOR == alert.getType()){
-                    ImageLoaderFactory.getLoader(mAlertTypeView)
-                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_alert, null);
-                } else {
-                    ImageLoaderFactory.getLoader(mAlertTypeView)
-                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_error, null);
-                }
-                mTimeText.setText(alert.getTime());
-                mWeekText.setText(alert.getWeek());
-                mDetailText.setText("收起");
-            }else {
-                if (Alert.ALERT_BATTERY == alert.getType()) {
-                    ImageLoaderFactory.getLoader(mAlertTypeView)
-                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_power, null);
-                } else if (Alert.ALERT_OPEN_DOOR == alert.getType()){
-                    ImageLoaderFactory.getLoader(mAlertTypeView)
-                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_alert, null);
-                } else {
-                    ImageLoaderFactory.getLoader(mAlertTypeView)
-                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_error, null);
-                }
-                mTimeText.setText(alert.getTime());
-                mWeekText.setText(alert.getWeek());
-                mDetailText.setText("查看详情");
 
+            if (Alert.ALERT_BATTERY == alert.getType()) {
+                ImageLoaderFactory.getLoader(mAlertTypeView)
+                        .showImage(mAlertTypeView, "res:///" + R.drawable.message_power, null);
+            } else if (Alert.ALERT_OPEN_DOOR == alert.getType()){
+                ImageLoaderFactory.getLoader(mAlertTypeView)
+                        .showImage(mAlertTypeView, "res:///" + R.drawable.message_alert, null);
+            } else {
+                ImageLoaderFactory.getLoader(mAlertTypeView)
+                        .showImage(mAlertTypeView, "res:///" + R.drawable.message_error, null);
             }
+            mTimeText.setText(alert.getTime());
+            mWeekText.setText(alert.getWeek());
+            mDetailText.setText("查看详情");
+
+            mDetailLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mDetailText.getText().toString().equals("查看详情")) {
+                        Animation animation = new RotateAnimation(0.0f, +90.0f,
+                                Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
+                        animation.setFillAfter(true);
+                        mDetailView.setAnimation(animation);
+                        mDetailText.setText("收起");
+                    } else {
+                        Animation animation = new RotateAnimation(0.0f, -90.0f,
+                                Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
+                        mDetailView.setAnimation(animation);
+                        mDetailText.setText("查看详情");
+                    }
+                }
+            });
+
+//            if(isDetail) {
+//                if (Alert.ALERT_BATTERY == alert.getType()) {
+//                    ImageLoaderFactory.getLoader(mAlertTypeView)
+//                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_power, null);
+//                } else if (Alert.ALERT_OPEN_DOOR == alert.getType()){
+//                    ImageLoaderFactory.getLoader(mAlertTypeView)
+//                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_alert, null);
+//                } else {
+//                    ImageLoaderFactory.getLoader(mAlertTypeView)
+//                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_error, null);
+//                }
+//                mTimeText.setText(alert.getTime());
+//                mWeekText.setText(alert.getWeek());
+//                mDetailText.setText("收起");
+//            }else {
+//                if (Alert.ALERT_BATTERY == alert.getType()) {
+//                    ImageLoaderFactory.getLoader(mAlertTypeView)
+//                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_power, null);
+//                } else if (Alert.ALERT_OPEN_DOOR == alert.getType()){
+//                    ImageLoaderFactory.getLoader(mAlertTypeView)
+//                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_alert, null);
+//                } else {
+//                    ImageLoaderFactory.getLoader(mAlertTypeView)
+//                            .showImage(mAlertTypeView, "res:///" + R.drawable.message_error, null);
+//                }
+//                mTimeText.setText(alert.getTime());
+//                mWeekText.setText(alert.getWeek());
+//                mDetailText.setText("查看详情");
+//
+//            }
 
 
         }
