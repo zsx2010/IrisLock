@@ -7,13 +7,11 @@ import java.io.Serializable;
 /**
  * Entity mapped to table "ALERT".
  */
-public class Alert implements Serializable {
-
+public class Alert implements Serializable{
 
     public static final int ALERT_BATTERY = 0;
     public static final int ALERT_OPEN_DOOR = 1;
     public static final int ALERT_ERROR = 2;
-
     private Long id;
     private int type;
     /** Not-null value. */
@@ -94,15 +92,4 @@ public class Alert implements Serializable {
         this.alertImage = alertImage;
     }
 
-    @Override
-    public String toString() {
-        return "Alert{" +
-                "alertImage='" + alertImage + '\'' +
-                ", id=" + id +
-                ", type=" + type +
-                ", alertInfo='" + alertInfo + '\'' +
-                ", time='" + time + '\'' +
-                ", week='" + week + '\'' +
-                '}';
-    }
 }

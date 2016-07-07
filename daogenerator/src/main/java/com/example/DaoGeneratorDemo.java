@@ -43,5 +43,36 @@ public class DaoGeneratorDemo {
         note.addStringProperty("week").notNull();
         note.addStringProperty("alertImage");
 
+        note = schema.addEntity("Authorize");
+        note.addIdProperty().autoincrement();
+        note.addStringProperty("name").notNull();
+        note.addBooleanProperty("isAuthorize").notNull();
+        note.addBooleanProperty("isOpen").notNull();
+        note.addStringProperty("openTime").notNull();
+        note.addStringProperty("week").notNull();
+        note.addStringProperty("authorizeImage").notNull();
+        note.addStringProperty("date").notNull();
+        note.addStringProperty("time").notNull();
+
+        note = schema.addEntity("Monitor");
+        note.addIdProperty().autoincrement();
+        note.addStringProperty("name").notNull();
+        note.addStringProperty("userType").notNull();
+        note.addBooleanProperty("isOut").notNull();
+        note.addStringProperty("week").notNull();
+        note.addStringProperty("image").notNull();
+        note.addStringProperty("time").notNull();
+
+        note = schema.addEntity("User");
+        note.addIdProperty().autoincrement();
+        note.addStringProperty("user_id").notNull();
+        note.addStringProperty("user_name").notNull();
+        note.addStringProperty("user_info").notNull();
+        note.addStringProperty("user_flag").notNull();
+        note.addStringProperty("valid_time_start").notNull();
+        note.addStringProperty("valid_time_stop").notNull();
+        note.addStringProperty("valid_time_week").notNull();
+        note.addStringProperty("register_time").notNull();
+        note.addStringProperty("iris_path").notNull();
     }
 }
