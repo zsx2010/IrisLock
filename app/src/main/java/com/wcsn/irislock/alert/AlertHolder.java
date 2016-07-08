@@ -1,5 +1,6 @@
 package com.wcsn.irislock.alert;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -26,6 +27,19 @@ public class AlertHolder extends AHolder{
     private ImageView mDetailView;
     private LinearLayout mDetailLayout;
 
+    private TextView mAlertInfo;
+
+    private LinearLayout mOpenDoorLayout;
+    private SimpleDraweeView mAlertImage;
+    private TextView mTakeTime;
+
+    private LinearLayout mPowerLayout;
+    private TextView mPowerStateText;
+    private SimpleDraweeView mPowerImage;
+    private TextView mPowerText;
+
+    private LinearLayout mServerLayout;
+
 
     private TextView mDeleteView;
 
@@ -38,6 +52,20 @@ public class AlertHolder extends AHolder{
         mDetailText = finder.find(R.id.detailText);
         mDetailView = finder.find(R.id.detailImage);
         mDetailLayout = finder.find(R.id.detailLayout);
+
+        mAlertInfo = finder.find(R.id.alertInfo);
+
+
+        mOpenDoorLayout = finder.find(R.id.openDoorLayout);
+        mAlertImage = finder.find(R.id.alertImage);
+        mTimeText = finder.find(R.id.takeTime);
+
+        mPowerLayout = finder.find(R.id.powerLayout);
+        mPowerImage = finder.find(R.id.powerImage);
+        mPowerStateText = finder.find(R.id.powerStateText);
+        mPowerText = finder.find(R.id.powerText);
+
+        mServerLayout = finder.find(R.id.serverLayout);
 
         mDeleteView = finder.find(R.id.deleteButton);
 
@@ -53,10 +81,12 @@ public class AlertHolder extends AHolder{
         });
     }
 
-    public void bindData(Alert alert, boolean isRemove, boolean isDetail) {
+    public void bindData(final Alert alert, boolean isRemove, boolean isDetail) {
         if (isRemove) {
 
         } else {
+
+            mTimeText.setText(alert.getTime());
 
             if (Alert.ALERT_BATTERY == alert.getType()) {
                 ImageLoaderFactory.getLoader(mAlertTypeView)
@@ -81,11 +111,61 @@ public class AlertHolder extends AHolder{
                         animation.setFillAfter(true);
                         mDetailView.setAnimation(animation);
                         mDetailText.setText("收起");
+
+
+                        mAlertInfo.setVisibility(View.VISIBLE);
+                        if (Alert.ALERT_BATTERY == alert.getType()) {
+                            mAlertInfo.setText("门锁现状：可正常使用");
+                            mPowerLayout.setVisibility(View.VISIBLE);
+                            int power = Integer.parseInt(alert.getAlertInfo());
+                            if (power <= 20) {
+                                ImageLoaderFactory.getLoader(mPowerImage)
+                                        .showImage(mPowerImage, "res:///" + R.drawable.power_20, null);
+                                mPowerStateText.setText("电源电量：需要充电");
+                                mPowerText.setText("20%");
+                                mPowerText.setTextColor(Color.RED);
+                            } else if (power <= 50) {
+                                ImageLoaderFactory.getLoader(mPowerImage)
+                                        .showImage(mPowerImage, "res:///" + R.drawable.power_50, null);
+                                mPowerStateText.setText("电源电量：电量适中");
+                                mPowerText.setText("50%");
+                                mPowerText.setTextColor(Color.YELLOW);
+                            } else if (power <= 80) {
+                                ImageLoaderFactory.getLoader(mPowerImage)
+                                        .showImage(mPowerImage, "res:///" + R.drawable.power_80, null);
+                                mPowerStateText.setText("电源电量：电量充足");
+                                mPowerText.setText("80%");
+                                mPowerText.setTextColor(Color.GREEN);
+                            } else {
+                                ImageLoaderFactory.getLoader(mPowerImage)
+                                        .showImage(mPowerImage, "res:///" + R.drawable.power_100, null);
+                                mPowerStateText.setText("电源电量：电量充足");
+                                mPowerText.setText("100%");
+                                mPowerText.setTextColor(Color.GREEN);
+                            }
+                        } else if (Alert.ALERT_OPEN_DOOR == alert.getType()){
+                            mAlertInfo.setText("报警原因：非虹膜开门");
+                            mOpenDoorLayout.setVisibility(View.VISIBLE);
+                            String url = alert.getAlertImage();
+                            ImageLoaderFactory.getLoader(mAlertTypeView)
+                                    .showImage(mAlertImage, url, null);
+                            mTimeText.setText("拍摄时间：" + alert.getTime());
+                        } else {
+                            mAlertInfo.setText("故障代码：" + alert.getAlertInfo());
+                            mServerLayout.setVisibility(View.VISIBLE);
+                        }
+
+
+
                     } else {
                         Animation animation = new RotateAnimation(0.0f, -90.0f,
                                 Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
                         mDetailView.setAnimation(animation);
                         mDetailText.setText("查看详情");
+                        mAlertInfo.setVisibility(View.GONE);
+                        mOpenDoorLayout.setVisibility(View.GONE);
+                        mPowerLayout.setVisibility(View.GONE);
+                        mServerLayout.setVisibility(View.GONE);
                     }
                 }
             });

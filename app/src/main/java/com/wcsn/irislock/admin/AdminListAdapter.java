@@ -79,4 +79,13 @@ public class AdminListAdapter extends PagerAdapter<User, ListModel<User>,
     public AdminHolder newHolder(Context context) {
         return null;
     }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        mRecyclerView = recyclerView;
+        mRecyclerView.addOnItemTouchListener(new ItemSlideHelper(mRecyclerView.getContext(), this));
+
+    }
 }

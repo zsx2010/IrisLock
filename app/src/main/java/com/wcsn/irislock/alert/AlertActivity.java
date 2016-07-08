@@ -76,6 +76,9 @@ public class AlertActivity extends BaseMVPActivity<AlertPresenter> implements Al
 
     @Override
     public void removeItem(int position) {
+
+        getPresenter().deleteItem(position);
+
         adapter.removeItem(position);
     }
 

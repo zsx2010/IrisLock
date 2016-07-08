@@ -25,4 +25,7 @@
     <string name="visitorLogin">我是游客</string>
     <string name="isAdmin">我是管理员</string>
     <string name="adminInfo">管理员</string>
+    <string name="tell_us">请拨打客服电话：</string>
+    <string name="services_phone">400-110-119</string>
+    <string name="monitor">监控信息</string>
 </resources>

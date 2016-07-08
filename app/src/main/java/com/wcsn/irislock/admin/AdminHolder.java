@@ -69,7 +69,7 @@ public class AdminHolder extends AHolder{
             mUserTypeText.setText("临时用户");
         }
 
-        mDetailView.setImageResource(R.drawable.ic_keyboard_arrow_right_black_36dp);
+//        mDetailView.setImageResource(R.drawable.ic_keyboard_arrow_right_black_36dp);
 
 
 

@@ -202,7 +202,7 @@
                 android:id="@+id/pictureText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/alert"
+                android:text="@string/monitor"
                 android:textColor="@color/colorIngigo"
                 android:textSize="@dimen/text_size_standard"
                 android:layout_gravity="center_horizontal"/>

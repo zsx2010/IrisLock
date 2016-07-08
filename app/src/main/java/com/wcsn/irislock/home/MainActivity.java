@@ -14,9 +14,9 @@ import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wcsn.irislock.R;
+import com.wcsn.irislock.admin.AdminActivity;
 import com.wcsn.irislock.alert.AlertActivity;
 import com.wcsn.irislock.app.App;
-import com.wcsn.irislock.utils.JPushUtils;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
 import cn.jpush.android.api.JPushInterface;
@@ -92,6 +92,12 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
         });
 
         mAdminLayout = finder.find(R.id.adminLayout);
+        mAdminLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AdminActivity.launch(MainActivity.this);
+            }
+        });
         mPictureLayout = finder.find(R.id.pictureLayout);
         mAuthorizationLayout = finder.find(R.id.authorizationLayout);
 

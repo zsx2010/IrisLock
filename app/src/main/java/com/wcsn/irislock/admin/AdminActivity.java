@@ -14,7 +14,10 @@ import com.ImaginationUnlimited.library.app.mvp.IUI;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.adapter.PagerAdapter;
+import com.wcsn.irislock.login.RegisterActivity;
 import com.wcsn.irislock.utils.view.RecycleViewDivider;
+
+import cn.qqtheme.framework.picker.OptionPicker;
 
 /**
  * Created by suiyue on 2016/7/7 0007.
@@ -54,8 +57,37 @@ public class AdminActivity extends BaseMVPActivity<AdminPresenter>
         mRecyclerView.addItemDecoration(new RecycleViewDivider(getApplicationContext(),
                 RecyclerView.HORIZONTAL, 4, Color.GRAY));
 
+        mAddUserView = finder.find(R.id.addUser);
+        mAddUserView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OptionPicker picker = new OptionPicker(AdminActivity.this, new String[]{"永久用户", "临时用户"});
+                picker.setOffset(1);
+                picker.setSelectedIndex(1);
+                picker.setTextSize(24);
+                picker.setLineColor(Color.GRAY);
+                picker.setTitleText("添加用户");
+                picker.setOnOptionPickListener(new OptionPicker.OnOptionPickListener() {
+                    @Override
+                    public void onOptionPicked(String option) {
+                        if (option.equals("永久用户")) {
+                            RegisterActivity.launch(AdminActivity.this);
+                        } else {
+                            TempUserActivity.launch(AdminActivity.this);
+                        }
+                    }
+                });
+                picker.show();
+            }
+        });
+
         getPresenter().refreshUserList();
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
     }
 
     @Override
@@ -78,4 +110,7 @@ public class AdminActivity extends BaseMVPActivity<AdminPresenter>
     public PagerAdapter getAdapter() {
         return mAdapter;
     }
+
+
+
 }

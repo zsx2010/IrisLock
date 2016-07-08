@@ -72,7 +72,7 @@ public class IrisLockApplication extends Application{
         if(sDaoMaster == null){
             //create database
             //获取Master对象
-            DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context, "alert", null);
+            DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context, "irislock", null);
             sDaoMaster = new DaoMaster(helper.getWritableDatabase());
         }
         return sDaoMaster;

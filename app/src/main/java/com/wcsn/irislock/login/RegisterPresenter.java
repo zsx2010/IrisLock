@@ -2,6 +2,7 @@ package com.wcsn.irislock.login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import cn.jpush.android.api.JPushInterface;
 import cn.qqtheme.framework.picker.AddressPicker;
 
 /**
@@ -80,6 +80,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
             AddressPicker picker = new AddressPicker(getUI().getOwnerActivity(), data);
             picker.setHideCounty(hideCounty);
             picker.setSelectedItem(selectedProvince, selectedCity, selectedCounty);
+            picker.setLineColor(Color.GRAY);
             picker.setOnAddressPickListener(new AddressPicker.OnAddressPickListener() {
                 @Override
                 public void onAddressPicked(String province, String city, String county) {
