@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.sp.SPModel;
@@ -18,7 +19,6 @@ import com.google.gson.Gson;
 import com.vilyever.socketclient.SocketClient;
 import com.vilyever.socketclient.helper.SocketClientAddress;
 import com.vilyever.socketclient.helper.SocketClientDelegate;
-import com.vilyever.socketclient.helper.SocketPacket;
 import com.vilyever.socketclient.helper.SocketResponsePacket;
 import com.wcsn.irislock.home.MainActivity;
 import com.wcsn.irislock.login.bean.AdminInfo;
@@ -240,10 +240,18 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
     class SocketThread extends Thread {
 
         private AdminInfo mAdminInfo;
+        /**
+         * 0 表示连接上
+         * 1 发送deviceId
+         * 2 发送用户信息
+         */
+        private int SocketType = 0;
 
         public SocketThread(AdminInfo adminInfo) {
             mAdminInfo = adminInfo;
         }
+
+
 
         @Override
         public void run() {
@@ -256,29 +264,29 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
             socketClient.getSocketPacketHelper().setSendHeaderData(null); // 设置发送消息时自动在消息头部添加的信息，远程端收到此信息后表示一条消息开始，用于解决粘包分包问题，若为null则不添加头部信息
             socketClient.getSocketPacketHelper().setSendTrailerString(null);
 
+
+            Gson gson = new Gson();
+            String jsonUserInfo = gson.toJson(mAdminInfo);
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUser_name(mAdminInfo.getName());
+            userInfo.setUser_info(jsonUserInfo);
+            userInfo.setUser_flag("1");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            userInfo.setRegister_time(format.format(new Date()));
+            userInfo.setUser_id("0");
+            userInfo.setValid_time_start("");
+            userInfo.setValid_time_stop("");
+            userInfo.setValid_time_week("");
+            userInfo.setIris_path("/");
+            final String jsonUser = gson.toJson(userInfo);
+
             socketClient.registerSocketClientDelegate(new SocketClientDelegate() {
                 int i = 5;
                 @Override
                 public void onConnected(SocketClient socketClient) {
                     Logger.e("Socket 已连接");
-                    Gson gson = new Gson();
-                    String jsonUserInfo = gson.toJson(mAdminInfo);
-                    UserInfo userInfo = new UserInfo();
-                    userInfo.setUser_name(mAdminInfo.getName());
-                    userInfo.setUser_info(jsonUserInfo);
-                    userInfo.setUser_flag("1");
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    userInfo.setRegister_time(format.format(new Date()));
-                    userInfo.setUser_id("0");
-                    userInfo.setValid_time_start("");
-                    userInfo.setValid_time_stop("");
-                    userInfo.setValid_time_week("");
-                    userInfo.setIris_path("/");
-                    String jsonUser = gson.toJson(userInfo);
-                    SocketPacket packet = socketClient.sendString(SPModel.getDeviceId());
-                    Logger.e("F201" + jsonUser);
-                    packet = socketClient.sendString("F201" + jsonUser);
-                    packet = socketClient.sendString("EXIT");
+                    SocketType = 0;
+                    socketClient.sendString(SPModel.getDeviceId());
                 }
 
                 @Override
@@ -291,18 +299,40 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
                 public void onResponse(SocketClient socketClient, @NonNull SocketResponsePacket socketResponsePacket) {
                     String message = socketResponsePacket.getMessage();
                     if (message == null) {
-                        Logger.e("message 注册 = null");
+                        Logger.e("message = null");
                     } else if (message.equals("success")){
-                        Logger.e("message 注册 = success");
+                        Logger.e("message = success");
+                        switch(SocketType){
+                            case 0:
+                                socketClient.sendString("F201" + jsonUser);
+                                getUI().getRegisterLayout().setVisibility(View.GONE);
+                                getUI().getWaitRegisterLayout().setVisibility(View.VISIBLE);
+                                SocketType = 1;
+                                break;
+                            case 1:
+                                socketClient.sendString("EXIT");
+                                getUI().getRegisterLayout().setVisibility(View.VISIBLE);
+                                getUI().getWaitRegisterLayout().setVisibility(View.GONE);
+                                SocketType = 0;
+                                break;
 
-                        socketClient.disconnect();
+                        }
+
                     } else {
-                        Logger.e("message 注册 = " + message);
+                        Logger.e("message = failed");
+                        switch(SocketType){
+                            case 0:
+                                Logger.e("deviceId 无效");
+                                SocketType = 1;
+                                break;
+                            case 1:
+                                socketClient.sendString("EXIT");
+                                SocketType = 0;
+                                break;
+                        }
                     }
                 }
             });
-
-
             socketClient.connect();
         }
     }

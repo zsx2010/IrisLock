@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -255,6 +256,11 @@ public class WheelView extends ScrollView {
             paint.setColor(lineColor);
             paint.setStrokeWidth(dip2px(1f));
         }
+
+        WindowManager wm = (WindowManager) getContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        final int screenWidth = wm.getDefaultDisplay().getWidth();
+        int height = wm.getDefaultDisplay().getHeight();
 
         background = new Drawable() {
             @Override

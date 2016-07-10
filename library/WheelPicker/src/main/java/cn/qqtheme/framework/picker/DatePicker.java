@@ -174,8 +174,9 @@ public class DatePicker extends WheelPicker {
         LinearLayout layout = new LinearLayout(activity);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setGravity(Gravity.CENTER);
+        final int width = screenWidthPixels / 3;
         WheelView yearView = new WheelView(activity.getBaseContext());
-        yearView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+        yearView.setLayoutParams(new LinearLayout.LayoutParams(width, WRAP_CONTENT));
         yearView.setTextSize(textSize);
         yearView.setTextColor(textColorNormal, textColorFocus);
         yearView.setLineVisible(lineVisible);
@@ -185,13 +186,14 @@ public class DatePicker extends WheelPicker {
         TextView yearTextView = new TextView(activity);
         yearTextView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
         yearTextView.setTextSize(textSize);
+        yearTextView.setGravity(Gravity.CENTER);
         yearTextView.setTextColor(textColorFocus);
         if (!TextUtils.isEmpty(yearLabel)) {
             yearTextView.setText(yearLabel);
         }
         layout.addView(yearTextView);
         WheelView monthView = new WheelView(activity.getBaseContext());
-        monthView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+        monthView.setLayoutParams(new LinearLayout.LayoutParams(width, WRAP_CONTENT));
         monthView.setTextSize(textSize);
         monthView.setTextColor(textColorNormal, textColorFocus);
         monthView.setLineVisible(lineVisible);
@@ -202,12 +204,13 @@ public class DatePicker extends WheelPicker {
         monthTextView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
         monthTextView.setTextSize(textSize);
         monthTextView.setTextColor(textColorFocus);
+        yearTextView.setGravity(Gravity.CENTER);
         if (!TextUtils.isEmpty(monthLabel)) {
             monthTextView.setText(monthLabel);
         }
         layout.addView(monthTextView);
         final WheelView dayView = new WheelView(activity.getBaseContext());
-        dayView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+        dayView.setLayoutParams(new LinearLayout.LayoutParams(width, WRAP_CONTENT));
         dayView.setTextSize(textSize);
         dayView.setTextColor(textColorNormal, textColorFocus);
         dayView.setLineVisible(lineVisible);

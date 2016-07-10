@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ImaginationUnlimited.library.app.BaseActivity;
@@ -40,6 +41,9 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
     private EditText mStreetEdit;
     private CheckBox mStreetCheck;
     private Button mRegisterButton;
+
+    private RelativeLayout mRegisterLayout;
+    private LinearLayout mWaitLayout;
 
     private AdminInfo mAdminInfo = new AdminInfo();
 
@@ -113,6 +117,10 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
                 getPresenter().registerAdmin(mAdminInfo);
             }
         });
+
+        mRegisterLayout = finder.find(R.id.registerLayout);
+        mWaitLayout = finder.find(R.id.waitLayout);
+
         getPresenter().InitAddress();
         getPresenter().bindWatcher();
     }
@@ -185,6 +193,16 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
     @Override
     public Button getRegisterButton() {
         return mRegisterButton;
+    }
+
+    @Override
+    public RelativeLayout getRegisterLayout() {
+        return mRegisterLayout;
+    }
+
+    @Override
+    public LinearLayout getWaitRegisterLayout() {
+        return mWaitLayout;
     }
 
 

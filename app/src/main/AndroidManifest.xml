@@ -125,14 +125,14 @@
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="f159b5f65b667fb5d3041418" /> <!-- </>值来自开发者平台取得的AppKey-->
 
-        <activity android:name=".home.MainActivity">
+        <activity android:name=".launch.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>>
-        <activity android:name=".launch.LaunchActivity"/>
+        <activity android:name=".home.MainActivity"/>
         <activity android:name=".login.RegisterActivity"/>
         <activity android:name=".alert.AlertActivity"/>
         <activity android:name=".login.AdminOrVisitorActivity"/>
@@ -140,6 +140,7 @@
         <activity android:name=".login.RegisterOrLoginActivity"/>
         <activity android:name=".login.AdminCheckActivity"/>
         <activity android:name=".admin.AdminActivity"/>
+        <activity android:name=".admin.TempUserActivity"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
