@@ -1,9 +1,11 @@
 package com.wcsn.irislock.login;
 
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ImaginationUnlimited.library.app.mvp.IUI;
 
@@ -24,5 +26,8 @@ public interface IRegisterUI extends IUI{
 
     RelativeLayout getRegisterLayout();
     LinearLayout getWaitRegisterLayout();
+
+    TextView getText();
+    CheckBox getCheck();
 
 }

@@ -45,4 +45,7 @@
     <string name="allDay">全天</string>
     <string name="twentyFour">24小时制</string>
     <string name="enterCount">当前录入次数 : </string>
+    <string name="authorizationDesc">注：授权申请应在临时授权许可时间内发生</string>
+    <string name="authorizationOk">确认授权</string>
+    <string name="authorizationCancel">拒绝此次授权</string>
 </resources>

@@ -45,6 +45,9 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
     private RelativeLayout mRegisterLayout;
     private LinearLayout mWaitLayout;
 
+    private TextView mEnterCount;
+    private CheckBox mCheckBox;
+
     private AdminInfo mAdminInfo = new AdminInfo();
 
     private String sex = "male";
@@ -203,6 +206,16 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
     @Override
     public LinearLayout getWaitRegisterLayout() {
         return mWaitLayout;
+    }
+
+    @Override
+    public TextView getText() {
+        return mEnterCount;
+    }
+
+    @Override
+    public CheckBox getCheck() {
+        return mCheckBox;
     }
 
 

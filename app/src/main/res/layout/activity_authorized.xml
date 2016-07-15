@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:scrollbars="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@color/colorIngigo"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_keyboard_arrow_left_white_18dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_title"
+                android:text="@string/authorization"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="250dp"
+            android:layout_height="270dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_standard"
+            android:textColor="@color/colorIngigo"
+            android:text="@string/address"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/button_space"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/acceptButton"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:background="@drawable/bg_button_green"
+                android:layout_centerHorizontal="true"
+                android:text="@string/authorizationOk"
+                android:textColor="@color/colorWhite"/>
+            <TextView
+                android:id="@+id/countDownText"
+                android:layout_toRightOf="@+id/acceptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_standard"
+                android:textColor="@color/colorRed"
+                />
+
+        </RelativeLayout>
+
+
+
+        <Button
+            android:id="@+id/rejectButton"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_button_red"
+            android:text="@string/authorizationCancel"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_little"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/Red"
+            android:text="@string/authorizationDesc"/>
+    </LinearLayout>
+
+
+</ScrollView>

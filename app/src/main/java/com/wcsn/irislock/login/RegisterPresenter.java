@@ -14,6 +14,7 @@ import com.ImaginationUnlimited.library.app.BaseActivity;
 import com.ImaginationUnlimited.library.app.mvp.BasePresenter;
 import com.ImaginationUnlimited.library.utils.app.StringUtils;
 import com.ImaginationUnlimited.library.utils.log.Logger;
+import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.vilyever.socketclient.SocketClient;
@@ -28,8 +29,14 @@ import com.wcsn.irislock.utils.AssetsUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import cn.qqtheme.framework.picker.AddressPicker;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by suiyue on 2016/6/14 0014.
@@ -307,10 +314,38 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
                                 socketClient.sendString("F201" + jsonUser);
                                 getUI().getRegisterLayout().setVisibility(View.GONE);
                                 getUI().getWaitRegisterLayout().setVisibility(View.VISIBLE);
+                                Random random=new Random();
+                                int time = random.nextInt(4000);
+                                Observable.timer(time, TimeUnit.MILLISECONDS)
+                                        .subscribeOn(Schedulers.computation())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new Action1<Long>() {
+                                            @Override
+                                            public void call(Long aLong) {
+                                               getUI().getText().setText("1");
+                                            }
+                                        });
+
+                                time = random.nextInt(4000);
+                                Observable.timer(time, TimeUnit.MILLISECONDS)
+                                        .subscribeOn(Schedulers.computation())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new Action1<Long>() {
+                                            @Override
+                                            public void call(Long aLong) {
+                                                getUI().getText().setText("2");
+                                            }
+                                        });
+
+
                                 SocketType = 1;
                                 break;
                             case 1:
                                 socketClient.sendString("EXIT");
+
+                                getUI().getText().setText("3");
+                                getUI().getCheck().setChecked(true);
+                                ToastUtils.toastShort("注册成功");
                                 getUI().getRegisterLayout().setVisibility(View.VISIBLE);
                                 getUI().getWaitRegisterLayout().setVisibility(View.GONE);
                                 SocketType = 0;
@@ -327,6 +362,12 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
                                 break;
                             case 1:
                                 socketClient.sendString("EXIT");
+                                getUI().getText().setText("0");
+                                getUI().getCheck().setChecked(false);
+                                ToastUtils.toastShort("注册失败，请重新扫描虹膜");
+                                getUI().getRegisterLayout().setVisibility(View.VISIBLE);
+                                getUI().getWaitRegisterLayout().setVisibility(View.GONE);
+
                                 SocketType = 0;
                                 break;
                         }
