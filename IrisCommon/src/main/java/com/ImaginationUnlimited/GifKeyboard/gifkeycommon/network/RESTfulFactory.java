@@ -27,15 +27,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RESTfulFactory {
     //FIXME check me please
-    //private static final String URL_BASE_DEBUG = "http://192.168.198.189/api/";
-    private static final String URL_BASE_DEBUG = "http://api.alphatech.mobi/api/";
+    public static final String URL_BASE = "http://10.103.24.178:8080/IrisLockWeb/";
     // 天气预报url
     public static final String WEATHER = "http://wthrcdn.etouch.cn/weather_mini?city=";
     //百度定位
     public static final String INTERFACE_LOCATION = "http://api.map.baidu.com/geocoder";
 
     public static String getUrlBase() {
-        return URL_BASE_DEBUG;
+        return URL_BASE;
     }
 
     // Gif列表相关的接口对象

@@ -16,9 +16,11 @@ import com.ImaginationUnlimited.library.app.mvp.BaseMVPActivity;
 import com.ImaginationUnlimited.library.app.mvp.IUI;
 import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.ImaginationUnlimited.library.utils.network.NetworkUtils;
+import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wcsn.irislock.R;
+import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.login.bean.AdminInfo;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
@@ -112,12 +114,17 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAdminInfo.setAddress(mAddressEdit.getText().toString());
-                mAdminInfo.setName(mNameEdit.getText().toString());
-                mAdminInfo.setPhone(mPhoneEdit.getText().toString());
-                mAdminInfo.setSex(sex);
-                mAdminInfo.setStreet(mStreetEdit.getEditableText().toString());
-                getPresenter().registerAdmin(mAdminInfo);
+                if (NetworkUtils.getWifiSSID(getBaseContext()).startsWith(App.mWifiName)) {
+                    mAdminInfo.setAddress(mAddressEdit.getText().toString());
+                    mAdminInfo.setName(mNameEdit.getText().toString());
+                    mAdminInfo.setPhone(mPhoneEdit.getText().toString());
+                    mAdminInfo.setSex(sex);
+                    mAdminInfo.setStreet(mStreetEdit.getEditableText().toString());
+                    getPresenter().registerAdmin(mAdminInfo);
+                } else {
+                    ToastUtils.toastShort("请连接设备WiFi");
+                }
+
             }
         });
 

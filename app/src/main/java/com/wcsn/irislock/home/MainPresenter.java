@@ -2,9 +2,10 @@ package com.wcsn.irislock.home;
 
 import com.ImaginationUnlimited.library.app.mvp.BasePresenter;
 import com.ImaginationUnlimited.library.utils.log.Logger;
+import com.ImaginationUnlimited.library.utils.network.NetworkUtils;
 import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
-import com.wcsn.irislock.utils.WeatherPresenter;
 import com.wcsn.irislock.home.beans.WeatherBean;
+import com.wcsn.irislock.utils.WeatherPresenter;
 
 import java.util.List;
 
@@ -22,10 +23,10 @@ public class MainPresenter extends BasePresenter<IMainUI> implements WeatherPres
 
         mWeatherModel = new WeatherModelImpl();
 
-//        if(!NetworkUtils.isAvailable(getContext())) {
-//            ToastUtils.toastShort("无网络连接");
-//            return;
-//        }
+        if(!NetworkUtils.isAvailable(getContext())) {
+            ToastUtils.toastShort("无网络连接");
+            return;
+        }
 
         WeatherModelImpl.LoadLocationListener listener = new WeatherModelImpl.LoadLocationListener() {
             @Override

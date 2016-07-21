@@ -2,11 +2,15 @@ package com.wcsn.irislock.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.sp.SPModel;
 import com.ImaginationUnlimited.library.app.BaseActivity;
 import com.ImaginationUnlimited.library.app.mvp.BaseMVPActivity;
 import com.ImaginationUnlimited.library.app.mvp.IUI;
@@ -17,6 +21,7 @@ import com.wcsn.irislock.R;
 import com.wcsn.irislock.admin.AdminActivity;
 import com.wcsn.irislock.alert.AlertActivity;
 import com.wcsn.irislock.app.App;
+import com.wcsn.irislock.authorize.AuthorizeActivity;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
 import cn.jpush.android.api.JPushInterface;
@@ -53,17 +58,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
         mSettingView = finder.find(R.id.setting);
 
         mIrisImage = finder.find(R.id.irisImage);
-//        List<Drawable> overlayList = new ArrayList<>();
-//        overlayList.add(getResources().getDrawable(R.drawable.grid));
-//        overlayList.add(getResources().getDrawable(R.drawable.shield_shadow));
-//        overlayList.add(getResources().getDrawable(R.drawable.shield));
-//        overlayList.add(getResources().getDrawable(R.drawable.shield_glisten));
-//        GenericDraweeHierarchyBuilder builder =
-//                new GenericDraweeHierarchyBuilder(getResources());
-//        GenericDraweeHierarchy hierarchy = builder
-//                .setOverlays(overlayList)
-//                .build();
-//        mIrisImage.setHierarchy(hierarchy);
 
         ImageLoaderFactory.getLoader(mIrisImage).showImage(mIrisImage,
                 "res:///" + R.drawable.grid, null);
@@ -102,6 +96,32 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
         mAuthorizationLayout = finder.find(R.id.authorizationLayout);
 
         getPresenter().loadWeatherData();
+
+        if (SPModel.getIsAuthorize()) {
+            Logger.e(getClass().getSimpleName(), SPModel.getAuthorize().toString());
+            final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
+            dialog.show();
+            Window window = dialog.getWindow();
+            window.setContentView(R.layout.dialog_authorize);
+            ImageView closeView = (ImageView) window.findViewById(R.id.close);
+            Button button = (Button) window.findViewById(R.id.button);
+            closeView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SPModel.putAuthorize(null);
+                    SPModel.putIsAuthorize(false);
+                    dialog.dismiss();
+                }
+            });
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AuthorizeActivity.launch(MainActivity.this);
+                    dialog.dismiss();
+                }
+            });
+        }
+
 
     }
 

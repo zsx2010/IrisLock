@@ -18,6 +18,7 @@ import com.vilyever.socketclient.helper.SocketClientDelegate;
 import com.vilyever.socketclient.helper.SocketPacket;
 import com.vilyever.socketclient.helper.SocketResponsePacket;
 import com.wcsn.irislock.R;
+import com.wcsn.irislock.home.MainActivity;
 import com.wcsn.irislock.login.AdminOrVisitorActivity;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
@@ -64,13 +65,19 @@ public class LaunchActivity extends BaseActivity {
         super.onStart();
 
 
+
         mSubscription = Observable.timer(STANDING_TIME, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
-                        AdminOrVisitorActivity.launch(LaunchActivity.this);
+                        if (SPModel.getDeviceId() != null) {
+                            MainActivity.launch(LaunchActivity.this);
+                        } else {
+                            AdminOrVisitorActivity.launch(LaunchActivity.this);
+                        }
+
                     }
                 });
     }

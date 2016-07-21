@@ -1,5 +1,6 @@
 package com.ImaginationUnlimited.GifKeyboard.gifkeycommon.sp;
 
+import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.entity.AuthorizeInfo;
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.entity.User;
 import com.ImaginationUnlimited.library.utils.app.StringUtils;
 import com.google.gson.Gson;
@@ -21,6 +22,9 @@ public class SPModel {
     private static final String KEY_SOCKET_IP = "KeySocketIp";
     private static final String KEY_SOCKET_PORT = "KeySocketPort";
 
+    private static final String KEY_IS_AUTHORIZE = "KeyIsAuthorize";
+    private static final String KEY_AUTHORIZE_INFO = "KeyAuthorizeInfo";
+
     private static String socketIp = "192.168.1.1";
     private static int socketPort = 12345;
 
@@ -39,6 +43,34 @@ public class SPModel {
     public static String getTokenPerhapsNull(){
         return SPUtils.getInstance().getString(KEY_DEVICE_ID,null);
     }
+
+
+    public static void putIsAuthorize(boolean isAuthorize) {
+        SPUtils.getInstance().putBoolean(KEY_IS_AUTHORIZE, isAuthorize);
+    }
+
+    public static boolean getIsAuthorize() {
+        return SPUtils.getInstance().getBoolean(KEY_IS_AUTHORIZE, false);
+    }
+
+
+    public static void putAuthorize(AuthorizeInfo authorizeInfo){
+        String json = null;
+        if(authorizeInfo != null){
+            json = new Gson().toJson(authorizeInfo);
+        }
+        SPUtils.getInstance().putString(KEY_AUTHORIZE_INFO,json);
+    }
+
+
+    public static AuthorizeInfo getAuthorize(){
+        String json = SPUtils.getInstance().getString(KEY_AUTHORIZE_INFO,"");
+        if(!StringUtils.isNullOrEmpty(json)){
+            return new Gson().fromJson(json,AuthorizeInfo.class);
+        }
+        return null;
+    }
+
 
     public static void putUser(User user){
         String json = null;

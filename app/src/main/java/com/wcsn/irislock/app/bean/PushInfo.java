@@ -6,7 +6,7 @@ package com.wcsn.irislock.app.bean;
 public class PushInfo<T> {
     private int code;
     private String msg;
-    private T date;
+    private T data;
 
     public int getCode() {
         return code;
@@ -24,12 +24,12 @@ public class PushInfo<T> {
         this.msg = msg;
     }
 
-    public T getDate() {
-        return date;
+    public T getData() {
+        return data;
     }
 
     public void setDate(T date) {
-        this.date = date;
+        this.data = date;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class PushInfo<T> {
         return "PushInfo{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
-                ", date=" + date +
+                ", date=" + data +
                 '}';
     }
 }

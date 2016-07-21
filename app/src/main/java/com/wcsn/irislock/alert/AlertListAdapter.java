@@ -29,8 +29,6 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
 
     public boolean isRemove = false;
 
-    public boolean isDetail = false;
-
     interface DeleteCallBack {
         void removeItem(int position);
     }
@@ -78,7 +76,7 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
     @Override
     public void onBindViewHolder(AlertHolder holder, int position) {
         Alert alert = getCurrentItem(position);
-        holder.bindData(alert, isRemove, isDetail);
+        holder.bindData(alert, isRemove);
     }
 
     @Override

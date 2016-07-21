@@ -30,11 +30,13 @@
         </LinearLayout>
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="250dp"
-            android:layout_height="270dp"
+            android:id="@+id/authorizationImage"
+            android:layout_width="278dp"
+            android:layout_height="347dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"/>
         <TextView
+            android:id="@+id/takeTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_standard"
@@ -63,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_standard"
                 android:textColor="@color/colorRed"
+                android:layout_centerVertical="true"
                 />
 
         </RelativeLayout>
@@ -80,6 +83,7 @@
             android:layout_gravity="center_horizontal"/>
 
         <TextView
+            android:id="@+id/authorizationDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_little"

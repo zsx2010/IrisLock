@@ -6,8 +6,38 @@
     android:layout_gravity="center">
 
     <ImageView
+        android:id="@+id/close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/circle_red"
+        android:src="@drawable/ic_close_white_18dp"/>
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/authorization"/>
+        android:src="@drawable/authorize"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/colorIngigo"
+        android:textSize="@dimen/text_size_date"
+        android:text="@string/authorizationInfo"
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="110dp"
+        android:layout_height="33dp"
+        android:background="@drawable/bg_button_register"
+        android:layout_marginTop="46dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/clickToSee"
+        android:textColor="@color/colorWhite"/>
 
 </LinearLayout>

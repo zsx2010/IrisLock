@@ -2,11 +2,15 @@ package com.wcsn.irislock.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 
 import com.ImaginationUnlimited.library.app.CoreLibrary;
 import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.wcsn.irislock.dao.DaoMaster;
 import com.wcsn.irislock.dao.DaoSession;
+import com.wcsn.irislock.receiver.NetWorkConnectChangedReceiver;
 
 import java.util.Set;
 
@@ -66,6 +70,12 @@ public class IrisLockApplication extends Application{
                 }
             }
         });
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(new NetWorkConnectChangedReceiver(), filter);
     }
 
     public static DaoMaster getDaoMaster(Context context){

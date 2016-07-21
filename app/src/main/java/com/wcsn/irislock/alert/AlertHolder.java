@@ -58,7 +58,7 @@ public class AlertHolder extends AHolder{
 
         mOpenDoorLayout = finder.find(R.id.openDoorLayout);
         mAlertImage = finder.find(R.id.alertImage);
-        mTimeText = finder.find(R.id.takeTime);
+        mTakeTime = finder.find(R.id.takeTime);
 
         mPowerLayout = finder.find(R.id.powerLayout);
         mPowerImage = finder.find(R.id.powerImage);
@@ -81,7 +81,7 @@ public class AlertHolder extends AHolder{
         });
     }
 
-    public void bindData(final Alert alert, boolean isRemove, boolean isDetail) {
+    public void bindData(final Alert alert, boolean isRemove) {
         if (isRemove) {
 
         } else {
@@ -98,7 +98,6 @@ public class AlertHolder extends AHolder{
                 ImageLoaderFactory.getLoader(mAlertTypeView)
                         .showImage(mAlertTypeView, "res:///" + R.drawable.message_error, null);
             }
-            mTimeText.setText(alert.getTime());
             mWeekText.setText(alert.getWeek());
             mDetailText.setText("查看详情");
 
@@ -149,7 +148,7 @@ public class AlertHolder extends AHolder{
                             String url = alert.getAlertImage();
                             ImageLoaderFactory.getLoader(mAlertTypeView)
                                     .showImage(mAlertImage, url, null);
-                            mTimeText.setText("拍摄时间：" + alert.getTime());
+                            mTakeTime.setText("拍摄时间：" + alert.getTime());
                         } else {
                             mAlertInfo.setText("故障代码：" + alert.getAlertInfo());
                             mServerLayout.setVisibility(View.VISIBLE);
