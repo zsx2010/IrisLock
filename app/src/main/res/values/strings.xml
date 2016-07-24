@@ -51,4 +51,5 @@
     <string name="authorizationInfo">您有一个授权请求！</string>
     <string name="clickToSee">点击查看</string>
     <string name="authorized">[身份-用户名]已授权</string>
+    <string name="data">2016-05-20</string>
 </resources>

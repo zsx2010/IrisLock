@@ -22,6 +22,7 @@ import com.wcsn.irislock.admin.AdminActivity;
 import com.wcsn.irislock.alert.AlertActivity;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.authorize.AuthorizeActivity;
+import com.wcsn.irislock.authorize.AuthorizeListActivity;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
 import cn.jpush.android.api.JPushInterface;
@@ -94,6 +95,12 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
         });
         mPictureLayout = finder.find(R.id.pictureLayout);
         mAuthorizationLayout = finder.find(R.id.authorizationLayout);
+        mAuthorizationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthorizeListActivity.launch(MainActivity.this);
+            }
+        });
 
         getPresenter().loadWeatherData();
 
