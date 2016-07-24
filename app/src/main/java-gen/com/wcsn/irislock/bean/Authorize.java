@@ -128,4 +128,18 @@ public class Authorize implements Serializable{
         this.time = time;
     }
 
+    @Override
+    public String toString() {
+        return "Authorize{" +
+                "authorizeImage='" + authorizeImage + '\'' +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", isAuthorize=" + isAuthorize +
+                ", isOpen=" + isOpen +
+                ", openTime='" + openTime + '\'' +
+                ", week='" + week + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                '}';
+    }
 }

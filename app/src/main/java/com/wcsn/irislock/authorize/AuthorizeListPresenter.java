@@ -1,6 +1,7 @@
 package com.wcsn.irislock.authorize;
 
 import com.ImaginationUnlimited.library.app.mvp.BasePresenter;
+import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.wcsn.irislock.bean.Authorize;
 import com.wcsn.irislock.utils.DaoUtils;
 
@@ -16,7 +17,9 @@ public class AuthorizeListPresenter extends BasePresenter<IAuthorizeListUI> {
     public void getAuthorizeList() {
         mDaoUtils = DaoUtils.getInstance(getUI().getOwnerActivity().getApplicationContext());
         List<Authorize> authorizes = mDaoUtils.loadAuthorizeAll();
+
         String date = "";
+        Logger.e(getClass().getSimpleName(), authorizes.size() + " = size");
         if (authorizes.size() != 0) {
             date = authorizes.get(0).getDate();
             Authorize authorize = new Authorize();
@@ -31,7 +34,12 @@ public class AuthorizeListPresenter extends BasePresenter<IAuthorizeListUI> {
                 authorizes.add(i,authorize);
             }
         }
-        getUI().getAdapter().updateList(authorizes);
+
+        for(int i=0; i<authorizes.size(); i++) {
+            Logger.e(getClass().getSimpleName(), authorizes.get(i).toString());
+        }
+
+        getUI().refreshList(authorizes);
 
 
     }

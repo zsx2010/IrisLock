@@ -99,7 +99,6 @@ public class AuthorizeActivity extends BaseMVPActivity<AuthorizePresenter> imple
             String url = RESTfulFactory.getUrlBase() + mAuthorizeInfo.getImageUrl();
             url = url.replace(" ", "%20");
             Logger.e(TAG,url);
-
             ImageLoaderFactory.getLoader(mAuthorizationImage).showImage(mAuthorizationImage, url, null);
             mTakeTimeText.setText("拍摄时间：" + mAuthorizeInfo.getTime());
             mTimer.start();

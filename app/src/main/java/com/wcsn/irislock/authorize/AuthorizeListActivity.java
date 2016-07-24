@@ -95,6 +95,7 @@ public class AuthorizeListActivity extends BaseMVPActivity<AuthorizeListPresente
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addItemDecoration(new RecycleViewDivider(getApplicationContext(),
                 RecyclerView.HORIZONTAL, 4, Color.GRAY));
+        adapter.updateList(authorizes);
 
     }
 }

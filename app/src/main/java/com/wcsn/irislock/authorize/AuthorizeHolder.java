@@ -5,6 +5,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.RESTfulFactory;
+import com.ImaginationUnlimited.library.utils.app.StringUtils;
+import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wcsn.irislock.R;
@@ -35,7 +38,11 @@ public class AuthorizeHolder extends AHolder{
         super(itemView);
 
         ViewFinder finder = new ViewFinder(itemView);
+
         if (type == AuthorizeListAdapter.TYPE_CONTENT) {
+
+            Logger.e("type = " + type);
+
             mSimpleDraweeView = finder.find(R.id.authorizeView);
             mUserName = finder.find(R.id.userName);
             mIsAuthorize = finder.find(R.id.isAuthorize);
@@ -58,10 +65,18 @@ public class AuthorizeHolder extends AHolder{
     }
 
     public void bindData(Authorize authorize, int type) {
+
         if (type == AuthorizeListAdapter.TYPE_CONTENT) {
+
+            String url = RESTfulFactory.getUrlBase() + authorize.getAuthorizeImage();
+            url = url.replace(" ", "%20");
             ImageLoaderFactory.getLoader(mSimpleDraweeView).showImage(mSimpleDraweeView,
-                    authorize.getAuthorizeImage(), null);
+                    url, null);
             mUserName.setText(authorize.getName());
+            if (StringUtils.isNullOrEmpty(authorize.getName())) {
+                mUserName.setText("用户名");
+            }
+
             if (authorize.getIsAuthorize()) {
                 mIsAuthorize.setText("已授权");
                 mAuthorizeDate.setChecked(true);
@@ -79,7 +94,31 @@ public class AuthorizeHolder extends AHolder{
                 mOpenDoorTime.setText(authorize.getOpenTime());
             }
             mAuthorizeTime.setText(authorize.getTime());
-            mAuthorizeWeek.setText(authorize.getWeek());
+            switch (authorize.getWeek()) {
+                case "1":
+                    mAuthorizeWeek.setText("星期一");
+                    break;
+                case "2":
+                    mAuthorizeWeek.setText("星期二");
+                    break;
+                case "3":
+                    mAuthorizeWeek.setText("星期三");
+                    break;
+                case "4":
+                    mAuthorizeWeek.setText("星期四");
+                    break;
+                case "5":
+                    mAuthorizeWeek.setText("星期五");
+                    break;
+                case "6":
+                    mAuthorizeWeek.setText("星期六");
+                    break;
+                case "7":
+                    mAuthorizeWeek.setText("星期日");
+                    break;
+
+            }
+
 
         } else {
             mDate.setText(authorize.getDate());

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.mvp.model.ListModel;
+import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.app.adapter.PagerAdapter;
@@ -43,16 +44,7 @@ public class AuthorizeListAdapter extends PagerAdapter<Authorize, ListModel<Auth
     @Override
     public void onBindViewHolder(AuthorizeHolder holder, int position) {
         Authorize authorize = getCurrentItem(position);
-        switch (holder.getItemViewType()) {
-            case TYPE_CONTENT:
-                holder.bindData(authorize, TYPE_CONTENT);
-                break;
-            case TYPE_TITLE:
-                holder.bindData(authorize, TYPE_TITLE);
-                break;
-        }
-
-
+        holder.bindData(authorize, holder.getItemViewType());
     }
 
     @Override
@@ -87,19 +79,18 @@ public class AuthorizeListAdapter extends PagerAdapter<Authorize, ListModel<Auth
     }
 
     @Override
-    public void onBindViewHolder(AuthorizeHolder holder, int position, List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
-    }
-
-    @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+        mRecyclerView.addOnItemTouchListener(new ItemSlideHelper(mRecyclerView.getContext(), this));
+
     }
 
     @Override
     public AuthorizeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) App.getInstance().getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Logger.e(viewType + " = viewType");
         switch (viewType) {
             case TYPE_CONTENT:
                 return new AuthorizeHolder(inflater.inflate(
