@@ -7,6 +7,7 @@ import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.entity.response
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.sp.SPModel;
 import com.ImaginationUnlimited.library.app.mvp.BasePresenter;
 import com.ImaginationUnlimited.library.utils.log.Logger;
+import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.wcsn.irislock.utils.network.ResponseSubscriber;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,6 +36,10 @@ public class AuthorizePresenter extends BasePresenter<IAuthorizeUI>{
                     public void onSuccess(ResponseNoData responseNoData) {
                         if (responseNoData.getCode() == 1) {
                             Logger.e("SUCCESS");
+                            getUI().getDialog().dismiss();
+                            getUI().waitOpenDoor();
+                        } else {
+                            ToastUtils.toastShort("授权失败，请重新尝试");
                         }
                     }
 

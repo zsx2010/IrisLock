@@ -35,6 +35,26 @@
             android:layout_height="347dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"/>
+        <LinearLayout
+            android:id="@+id/alreadyAuthorization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_standard"
+                android:text="@string/authorized"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_bg"
+                android:checked="true"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+        
         <TextView
             android:id="@+id/takeTime"
             android:layout_width="wrap_content"
@@ -44,6 +64,33 @@
             android:text="@string/address"
             android:layout_gravity="center_horizontal"
             />
+        
+        <TextView
+            android:id="@+id/openDoorCountDownText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_date"
+            android:textColor="@color/colorEditText"
+            android:text="@string/address"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            />
+        
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/isOpenDoorView"
+            android:layout_width="45dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/isOpenDoorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/address"
+            android:textColor="@color/colorIngigo"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

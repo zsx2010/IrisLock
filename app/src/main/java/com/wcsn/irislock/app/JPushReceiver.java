@@ -13,12 +13,15 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.wcsn.irislock.alert.AlertActivity;
 import com.wcsn.irislock.app.bean.PushInfo;
+import com.wcsn.irislock.app.event.EvIsOpenDoor;
 import com.wcsn.irislock.bean.Alert;
 import com.wcsn.irislock.bean.Authorize;
 import com.wcsn.irislock.bean.Monitor;
 import com.wcsn.irislock.home.MainActivity;
 import com.wcsn.irislock.utils.DaoUtils;
 import com.wcsn.irislock.utils.DateUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -91,6 +94,9 @@ public class JPushReceiver extends BroadcastReceiver {
                                 Monitor monitor = gson.fromJson(pushInfo.getData().toString(), Monitor.class);
                                 mDaoUtils.saveMonitor(monitor);
                                 break;
+                            case TYPE_AUTHORIZE_ACTION:
+                                EventBus.getDefault().post(new EvIsOpenDoor(true));
+                                break;
                         }
                     }
                 }
@@ -126,6 +132,7 @@ public class JPushReceiver extends BroadcastReceiver {
                             case TYPE_MONITOR:
                                 pushInfo = gson.fromJson(pushString, new TypeToken<PushInfo<Monitor>>(){}.getType());
                                 break;
+
                         }
                     }
                 }

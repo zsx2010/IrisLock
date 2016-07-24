@@ -126,6 +126,17 @@ public class DaoUtils {
         return mAuthorizeDao.queryRaw(where, params);
     }
 
+    public Authorize loadAuthorizeByImagePath(String path) {
+        List<Authorize> authorizes = mAuthorizeDao.queryBuilder()
+                .where(AuthorizeDao.Properties.AuthorizeImage.eq(path))
+                .list();
+        return authorizes == null?null:authorizes.get(0);
+    }
+
+    public long updateAuthorize(Authorize authorize) {
+        return mAuthorizeDao.insertOrReplace(authorize);
+    }
+
     public List<Authorize> loadAuthorizeAll() {
         return mAuthorizeDao.loadAll();
     }
