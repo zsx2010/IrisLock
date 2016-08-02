@@ -61,7 +61,7 @@ public class DaoUtils {
     }
 
     public List<Alert> loadAlertAll() {
-        return mAlertDao.loadAll();
+        return mAlertDao.queryBuilder().orderDesc(AlertDao.Properties.Id).list();
     }
 
     public Alert loadAlert(long id) {
