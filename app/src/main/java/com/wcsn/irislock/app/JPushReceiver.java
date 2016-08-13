@@ -70,6 +70,9 @@ public class JPushReceiver extends BroadcastReceiver {
                             case TYPE_ALERT:
                                 pushInfo = gson.fromJson(pushString, new TypeToken<PushInfo<Alert>>(){}.getType());
                                 Alert alert = (Alert) pushInfo.getData();
+                                if (alert.getType() == Alert.ALERT_BATTERY) {
+                                    SPModel.putPower(alert.getAlertInfo());
+                                }
                                 mDaoUtils.saveAlert(alert);
                                 break;
                             case TYPE_AUTHORIZE:

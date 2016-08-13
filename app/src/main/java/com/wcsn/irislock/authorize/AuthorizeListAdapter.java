@@ -32,6 +32,7 @@ public class AuthorizeListAdapter extends PagerAdapter<Authorize, ListModel<Auth
     private RecyclerView mRecyclerView;
 
     public boolean isRemove = false;
+
     private List<Authorize> mAuthorizes = new ArrayList<>();
 
 
@@ -44,7 +45,7 @@ public class AuthorizeListAdapter extends PagerAdapter<Authorize, ListModel<Auth
     @Override
     public void onBindViewHolder(AuthorizeHolder holder, int position) {
         Authorize authorize = getCurrentItem(position);
-        holder.bindData(authorize, holder.getItemViewType());
+        holder.bindData(authorize, holder.getItemViewType(), isRemove);
     }
 
     @Override

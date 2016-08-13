@@ -13,8 +13,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_keyboard_arrow_left_white_18dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"/>
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"/>
         <TextView
             android:id="@+id/deleteAll"
             android:layout_width="wrap_content"
@@ -26,13 +26,14 @@
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:visibility="gone"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/text_size_title"
-            android:text="@string/authorization"
+            android:text="@string/monitor_picture"
             android:gravity="center"/>
 
         <TextView
@@ -48,7 +49,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/authorizeList"
+        android:id="@+id/pictureList"
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

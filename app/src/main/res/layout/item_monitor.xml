@@ -23,53 +23,12 @@
             android:layout_marginLeft="5dp"
             />
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/authorizeView"
+            android:id="@+id/monitorView"
             android:layout_width="80dp"
             android:layout_height="112dp"
             android:layout_toRightOf="@+id/deleteView"
             />
-        <RelativeLayout
-            android:id="@+id/layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/authorizeView"
-            android:layout_toLeftOf="@+id/detailLayout">
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorIngigo"
-                android:textSize="@dimen/text_size_standard"
-                android:text="@string/app_name"/>
-            <TextView
-                android:id="@+id/isAuthorize"
-                android:layout_below="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorIngigo"
-                android:textSize="@dimen/text_size_standard"
-                android:text="@string/app_name"
-                android:layout_marginTop="4dp"/>
-            <ImageView
-                android:id="@+id/isOpenDoorView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/door_open_list"
-                android:layout_above="@+id/openDoorTime"
-                android:layout_marginBottom="2dp"
-                />
-            <TextView
-                android:id="@+id/openDoorTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorIngigo"
-                android:textSize="@dimen/text_size_standard"
-                android:text="@string/app_name"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/detailLayout"
@@ -77,31 +36,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_alignParentRight="true"
-            android:layout_alignBottom="@+id/authorizeView">
+            android:layout_alignBottom="@+id/monitorView">
             <CheckBox
-                android:id="@+id/authorizeDate"
+                android:id="@+id/pictureDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/data"
                 android:textColor="@color/colorIngigo"
                 android:button="@drawable/checkbox_authorize_bg"
-                android:checked="true"
+                android:checked="false"
                 android:padding="5dp"
                 android:layout_alignParentTop="true"/>
             <TextView
-                android:id="@+id/authorizeTime"
+                android:id="@+id/pictureName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_standard"
                 android:textColor="@color/colorIngigo"
                 android:text="@string/app_name"
-                android:layout_below="@+id/authorizeDate"
-                android:layout_alignRight="@+id/authorizeDate"/>
+                android:layout_centerVertical="true"
+                android:layout_alignRight="@+id/pictureDate"/>
             <TextView
-                android:id="@+id/authorizeWeek"
+                android:id="@+id/pictureType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/authorizeDate"
+                android:layout_alignRight="@+id/pictureDate"
                 android:text="@string/wed"
                 android:layout_alignParentBottom="true"
                 android:textColor="@color/colorIngigo"

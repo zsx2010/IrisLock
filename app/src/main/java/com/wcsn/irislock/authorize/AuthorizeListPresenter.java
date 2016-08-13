@@ -48,4 +48,8 @@ public class AuthorizeListPresenter extends BasePresenter<IAuthorizeListUI> {
         Authorize authorize = (Authorize) getUI().getAdapter().getCurrentItem(position);
         mDaoUtils.deleteAuthorize(authorize);
     }
+
+    public void deleteAll() {
+        mDaoUtils.deleteAuthorize();
+    }
 }

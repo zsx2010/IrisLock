@@ -32,6 +32,8 @@ public class AuthorizeHolder extends AHolder{
 
     private TextView mDate;
 
+    private ImageView mDeleteImage;
+
 
     public AuthorizeHolder(View itemView, final AuthorizeListAdapter.DeleteCallBack deleteCallBack,
                            int type) {
@@ -62,9 +64,16 @@ public class AuthorizeHolder extends AHolder{
         } else {
             mDate = finder.find(R.id.date);
         }
+        mDeleteImage = finder.find(R.id.deleteView);
     }
 
-    public void bindData(Authorize authorize, int type) {
+    public void bindData(Authorize authorize, int type, boolean isRemove) {
+
+        if (isRemove) {
+            mDeleteImage.setVisibility(View.VISIBLE);
+        } else {
+            mDeleteImage.setVisibility(View.GONE);
+        }
 
         if (type == AuthorizeListAdapter.TYPE_CONTENT) {
 

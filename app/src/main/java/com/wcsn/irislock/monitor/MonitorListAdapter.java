@@ -1,5 +1,4 @@
-package com.wcsn.irislock.alert;
-
+package com.wcsn.irislock.monitor;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,14 +11,13 @@ import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.mvp.model.ListModel;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.app.adapter.PagerAdapter;
-import com.wcsn.irislock.bean.Alert;
 import com.wcsn.irislock.utils.ItemSlideHelper;
 
 /**
- * Created by suiyue on 2016/6/22 0022.
+ * Created by suiyue on 2016/8/14 0014.
  */
-public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
-        AlertHolder> implements ItemSlideHelper.Callback{
+public class MonitorListAdapter extends PagerAdapter<String, ListModel<String>,
+        MonitorHolder> implements ItemSlideHelper.Callback{
 
 
     private DeleteCallBack mDeleteCallBack;
@@ -32,6 +30,16 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
         void removeItem(int position);
     }
 
+    public MonitorListAdapter(DeleteCallBack deleteCallBack) {
+        mDeleteCallBack = deleteCallBack;
+    }
+
+    @Override
+    public void onBindViewHolder(MonitorHolder holder, int position) {
+        String s = getCurrentItem(position);
+        holder.bindData(s, isRemove);
+
+    }
 
     @Override
     public int getHorizontalRange(RecyclerView.ViewHolder holder) {
@@ -42,10 +50,6 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
             }
         }
         return 0;
-    }
-
-    public AlertListAdapter(DeleteCallBack callBack) {
-        mDeleteCallBack = callBack;
     }
 
     @Override
@@ -59,22 +63,20 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
     }
 
     @Override
-    public AlertHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = (LayoutInflater) App.getInstance().getContext()
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return new AlertHolder(inflater.inflate(R.layout.item_alert, parent, false), mDeleteCallBack);
-    }
-
-    @Override
-    public ListModel<Alert> initModel() {
-
+    public ListModel<String> initModel() {
         return new ListModel<>();
     }
 
     @Override
-    public void onBindViewHolder(AlertHolder holder, int position) {
-        Alert alert = getCurrentItem(position);
-        holder.bindData(alert, isRemove);
+    public MonitorHolder newHolder(Context context) {
+        return null;
+    }
+
+    @Override
+    public MonitorHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) App.getInstance().getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        return new MonitorHolder(inflater.inflate(R.layout.item_monitor, parent, false), mDeleteCallBack);
     }
 
     @Override
@@ -83,12 +85,5 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
 
         mRecyclerView = recyclerView;
         mRecyclerView.addOnItemTouchListener(new ItemSlideHelper(mRecyclerView.getContext(), this));
-
     }
-
-    @Override
-    public AlertHolder newHolder(Context context) {
-        return null;
-    }
-
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_white">
+    <TextView
+        android:id="@+id/ok"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textSize="13sp"
+        android:text="@string/ok"
+        android:gravity="center"
+        android:textColor="@color/colorRed"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line"/>
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textSize="13sp"
+        android:text="@string/cancel"
+        android:textColor="@color/color_black"
+        android:gravity="center"
+        />
+
+</LinearLayout>

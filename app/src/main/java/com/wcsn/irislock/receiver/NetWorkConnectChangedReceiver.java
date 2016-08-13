@@ -17,6 +17,7 @@ import com.vilyever.socketclient.helper.SocketClientDelegate;
 import com.vilyever.socketclient.helper.SocketPacket;
 import com.vilyever.socketclient.helper.SocketResponsePacket;
 import com.wcsn.irislock.app.App;
+import com.wcsn.irislock.utils.SocketUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,7 +49,7 @@ public class NetWorkConnectChangedReceiver extends BroadcastReceiver {
                 boolean isConnected = state == NetworkInfo.State.CONNECTED;// 当然，这边可以更精确的确定状态
                 if (isConnected) {
                     if (NetworkUtils.getWifiSSID(context).startsWith(App.mWifiName)) {
-                        new SocketThread().run();
+                        SocketUtils.getTime();
                     }
                 } else {
 
@@ -102,4 +103,6 @@ public class NetWorkConnectChangedReceiver extends BroadcastReceiver {
             socketClient.connect();
         }
     }
+
+
 }

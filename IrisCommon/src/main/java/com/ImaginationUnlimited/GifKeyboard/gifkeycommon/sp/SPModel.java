@@ -5,10 +5,6 @@ import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.entity.User;
 import com.ImaginationUnlimited.library.utils.app.StringUtils;
 import com.google.gson.Gson;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
 /**
  * SP存储
  * @author wangheng on 2016-03-29 14:18
@@ -17,13 +13,14 @@ public class SPModel {
 
     private static final String KEY_DEVICE_ID = "keyDeviceId";
     private static final String KEY_USER = "keyUser";
-    private static final String KEY_SHUFFLE_LIST = "keyShuffleList";
 
     private static final String KEY_SOCKET_IP = "KeySocketIp";
     private static final String KEY_SOCKET_PORT = "KeySocketPort";
 
     private static final String KEY_IS_AUTHORIZE = "KeyIsAuthorize";
     private static final String KEY_AUTHORIZE_INFO = "KeyAuthorizeInfo";
+
+    private static final String KEY_POWER = "KeyPower";
 
     private static String socketIp = "192.168.1.1";
     private static int socketPort = 12345;
@@ -40,8 +37,12 @@ public class SPModel {
         return SPUtils.getInstance().getString(KEY_DEVICE_ID,"");
     }
 
-    public static String getTokenPerhapsNull(){
-        return SPUtils.getInstance().getString(KEY_DEVICE_ID,null);
+    public static void putPower(String power){
+        SPUtils.getInstance().putString(KEY_POWER, power);
+    }
+
+    public static String getPower(){
+        return SPUtils.getInstance().getString(KEY_POWER,"100");
     }
 
 
@@ -99,34 +100,5 @@ public class SPModel {
         return json;
     }
 
-    public static void putShuffleList(ArrayList<String> list){
-        if(list != null){
-            String json = new Gson().toJson(list);
-            SPUtils.getInstance().putString(KEY_SHUFFLE_LIST,json);
-        }
-    }
 
-    public static ArrayList<String> getShuffleList(){
-        String json = SPUtils.getInstance().getString(KEY_SHUFFLE_LIST,null);
-        if(StringUtils.isNullOrEmpty(json)){
-            return null;
-        }
-        ArrayList<String> list = new Gson().fromJson(json, new ParameterizedType() {
-            @Override
-            public Type[] getActualTypeArguments() {
-                return new Type[]{String.class};
-            }
-
-            @Override
-            public Type getOwnerType() {
-                return null;
-            }
-
-            @Override
-            public Type getRawType() {
-                return ArrayList.class;
-            }
-        });
-        return list;
-    }
 }

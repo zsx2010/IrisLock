@@ -16,4 +16,6 @@
     <color name="colorRegisterButton">#979797</color>
 
     <color name="colorButtonBar">#343434</color>
+    <color name="color_black">#000000</color>
+    <color name="line">#dddddd</color>
 </resources>

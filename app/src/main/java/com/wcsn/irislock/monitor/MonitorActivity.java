@@ -1,4 +1,4 @@
-package com.wcsn.irislock.authorize;
+package com.wcsn.irislock.monitor;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,37 +23,32 @@ import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.adapter.PagerAdapter;
-import com.wcsn.irislock.bean.Authorize;
 import com.wcsn.irislock.utils.view.RecycleViewDivider;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by suiyue on 2016/6/21 0021.
+ * Created by suiyue on 2016/8/14 0014.
  */
-public class AuthorizeListActivity extends BaseMVPActivity<AuthorizeListPresenter> implements AuthorizeListAdapter.DeleteCallBack,
-        IAuthorizeListUI{
+public class MonitorActivity extends BaseMVPActivity<MonitorPresenter>
+        implements  IMonitorUI, MonitorListAdapter.DeleteCallBack, Thread.UncaughtExceptionHandler{
 
     private ImageView mBackView;
     private TextView mEditView;
+    private TextView mDeleteAllView;
     private RecyclerView mRecyclerView;
 
+    private MonitorListAdapter adapter;
 
-    private AuthorizeListAdapter adapter;
-
-    private List<Authorize> mAuthorizes;
-
-    private TextView mDeleteAllView;
 
     public static void launch(BaseActivity activity){
-        Intent intent = new Intent(activity,AuthorizeListActivity.class);
+        Intent intent = new Intent(activity,MonitorActivity.class);
         activity.startActivity(intent);
     }
 
     @Override
     protected void onCreateExecute(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_authorize_list);
+        setContentView(R.layout.activity_monitor);
         ViewFinder finder = new ViewFinder(this);
         mBackView = finder.find(R.id.back);
         mBackView.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +61,6 @@ public class AuthorizeListActivity extends BaseMVPActivity<AuthorizeListPresente
         mEditView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logger.e(getClass().getSimpleName(), "click");
                 if (mEditView.getText().toString().equals("编辑")) {
                     mBackView.setVisibility(View.GONE);
                     mDeleteAllView.setVisibility(View.VISIBLE);
@@ -83,7 +77,6 @@ public class AuthorizeListActivity extends BaseMVPActivity<AuthorizeListPresente
 
             }
         });
-
         mDeleteAllView = finder.find(R.id.deleteAll);
         mDeleteAllView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,21 +85,24 @@ public class AuthorizeListActivity extends BaseMVPActivity<AuthorizeListPresente
             }
         });
 
-        mRecyclerView = finder.find(R.id.authorizeList);
+
+        mRecyclerView = finder.find(R.id.pictureList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        getPresenter().getAuthorizeList();
+        adapter = new MonitorListAdapter(this);
 
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(getApplicationContext(),
+                RecyclerView.HORIZONTAL, 4, Color.GRAY));
+
+        getPresenter().refreshAlertList();
+
+        Thread.setDefaultUncaughtExceptionHandler(this);
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
-
-    @Override
-    protected AuthorizeListPresenter createPresenter() {
-        return new AuthorizeListPresenter();
+    protected MonitorPresenter createPresenter() {
+        return new MonitorPresenter();
     }
 
     @Override
@@ -114,30 +110,7 @@ public class AuthorizeListActivity extends BaseMVPActivity<AuthorizeListPresente
         return this;
     }
 
-    @Override
-    public void removeItem(int position) {
 
-        getPresenter().deleteItem(position);
-
-        adapter.removeItem(position);
-    }
-
-
-    @Override
-    public PagerAdapter getAdapter() {
-        return adapter;
-    }
-
-    @Override
-    public void refreshList(List<Authorize> authorizes) {
-        mAuthorizes = authorizes;
-        adapter = new AuthorizeListAdapter(this, mAuthorizes, false);
-        mRecyclerView.setAdapter(adapter);
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(getApplicationContext(),
-                RecyclerView.HORIZONTAL, 4, Color.GRAY));
-        adapter.updateList(authorizes);
-
-    }
 
     public void deleteHint(View view, final Activity context) {
         View contentView = LayoutInflater.from(context).inflate(
@@ -155,7 +128,7 @@ public class AuthorizeListActivity extends BaseMVPActivity<AuthorizeListPresente
             @Override
             public void onClick(View v) {
                 getPresenter().deleteAll();
-                adapter.updateList(new ArrayList<Authorize>());
+                adapter.updateList(new ArrayList<String>());
                 mBackView.setVisibility(View.VISIBLE);
                 mDeleteAllView.setVisibility(View.GONE);
                 mEditView.setText("编辑");
@@ -197,4 +170,19 @@ public class AuthorizeListActivity extends BaseMVPActivity<AuthorizeListPresente
         });
     }
 
+    @Override
+    public PagerAdapter getAdapter() {
+        return adapter;
+    }
+
+    @Override
+    public void removeItem(int position) {
+        getPresenter().deleteItem(position);
+        adapter.removeItem(position);
+    }
+
+    @Override
+    public void uncaughtException(Thread thread, Throwable ex) {
+        Logger.e(ex.toString());
+    }
 }

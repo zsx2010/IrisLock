@@ -16,6 +16,17 @@
             android:paddingRight="10dp"
             android:paddingLeft="10dp"/>
         <TextView
+            android:id="@+id/deleteAll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/text_size_standard"
+            android:textColor="@color/colorWhite"
+            android:gravity="center_vertical"
+            android:text="@string/delete_all"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:visibility="gone"/>
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

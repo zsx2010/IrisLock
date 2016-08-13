@@ -20,6 +20,7 @@ import com.vilyever.socketclient.helper.SocketResponsePacket;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.home.MainActivity;
 import com.wcsn.irislock.login.AdminOrVisitorActivity;
+import com.wcsn.irislock.utils.SocketUtils;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
 import java.util.Set;
@@ -56,7 +57,8 @@ public class LaunchActivity extends BaseActivity {
 
 
         if (StringUtils.isNullOrEmpty(SPModel.getDeviceId())) {
-            new SocketThread().run();
+//            new SocketThread().run();
+            SocketUtils.getDeviceId();
         }
     }
 
