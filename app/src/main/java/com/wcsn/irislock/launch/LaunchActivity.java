@@ -74,7 +74,7 @@ public class LaunchActivity extends BaseActivity {
                 .subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
-                        if (SPModel.getDeviceId() != null) {
+                        if (!SPModel.getDeviceId().equals("")) {
                             MainActivity.launch(LaunchActivity.this);
                         } else {
                             AdminOrVisitorActivity.launch(LaunchActivity.this);
