@@ -158,6 +158,8 @@
         <activity android:name=".authorize.AuthorizeListActivity"/>
         
         <activity android:name=".monitor.MonitorActivity"/>
+
+        <activity android:name=".admin.FixedUserActivity"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>

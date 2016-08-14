@@ -14,7 +14,6 @@ import com.ImaginationUnlimited.library.app.mvp.IUI;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.adapter.PagerAdapter;
-import com.wcsn.irislock.login.RegisterActivity;
 import com.wcsn.irislock.utils.view.RecycleViewDivider;
 
 import cn.qqtheme.framework.picker.OptionPicker;
@@ -71,7 +70,7 @@ public class AdminActivity extends BaseMVPActivity<AdminPresenter>
                     @Override
                     public void onOptionPicked(String option) {
                         if (option.equals("永久用户")) {
-                            RegisterActivity.launch(AdminActivity.this);
+                            FixedUserActivity.launch(AdminActivity.this);
                         } else {
                             TempUserActivity.launch(AdminActivity.this);
                         }

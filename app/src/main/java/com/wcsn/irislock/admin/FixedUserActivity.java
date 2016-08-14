@@ -1,4 +1,4 @@
-package com.wcsn.irislock.login;
+package com.wcsn.irislock.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,24 +14,19 @@ import android.widget.TextView;
 import com.ImaginationUnlimited.library.app.BaseActivity;
 import com.ImaginationUnlimited.library.app.mvp.BaseMVPActivity;
 import com.ImaginationUnlimited.library.app.mvp.IUI;
-import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.ImaginationUnlimited.library.utils.network.NetworkUtils;
 import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.login.bean.AdminInfo;
-import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
 /**
- * Created by suiyue on 2016/6/14 0014.
+ * Created by suiyue on 2016/8/14 0014.
  */
-public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
-        implements IRegisterUI, Thread.UncaughtExceptionHandler{
+public class FixedUserActivity extends BaseMVPActivity<FixedUserPresenter>
+        implements IFixedUserUI{
 
-    private SimpleDraweeView mIsWifiConnectedView;
-    private TextView mIsWifiConnectedText;
     private RadioGroup mChooseSexGroup;
     private EditText mNameEdit;
     private CheckBox mNameCheck;
@@ -47,38 +42,22 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
     private RelativeLayout mRegisterLayout;
     private LinearLayout mWaitLayout;
 
-    private TextView mEnterCount;
-    private CheckBox mCheckBox;
-
     private AdminInfo mAdminInfo = new AdminInfo();
 
     private String sex = "male";
 
+    private TextView mEnterCount;
+    private CheckBox mCheckBox;
 
     public static void launch(BaseActivity activity){
-        Intent intent = new Intent(activity,RegisterActivity.class);
+        Intent intent = new Intent(activity,FixedUserActivity.class);
         activity.startActivity(intent);
     }
 
     @Override
     protected void onCreateExecute(Bundle savedInstanceState) {
-
-        setContentView(R.layout.activity_register);
-
+        setContentView(R.layout.activity_add_fixed_user);
         ViewFinder finder = new ViewFinder(this);
-
-
-        mIsWifiConnectedView = finder.find(R.id.isWifiConnectIcon);
-        mIsWifiConnectedText = finder.find(R.id.isWifiConnectText);
-        if(NetworkUtils.isWifiConnected(this)) {
-            ImageLoaderFactory.getLoader(mIsWifiConnectedView).showImage(mIsWifiConnectedView,
-                    "res:///" + R.drawable.wifi, null);
-            mIsWifiConnectedText.setText(R.string.wifiConnected);
-        } else {
-            ImageLoaderFactory.getLoader(mIsWifiConnectedView).showImage(mIsWifiConnectedView,
-                    "res:///" + R.drawable.wifi_no, null);
-            mIsWifiConnectedText.setText(R.string.wifiUnConnected);
-        }
 
         mNameEdit = finder.find(R.id.nameEdit);
         mNameCheck = finder.find(R.id.nameCheck);
@@ -87,8 +66,6 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
         mStreetEdit = finder.find(R.id.streetEdit);
         mStreetCheck = finder.find(R.id.streetCheck);
 
-
-
         mAddressLayout = finder.find(R.id.addressLayout);
         mAddressLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +73,7 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
                 getPresenter().showAddressPicker();
             }
         });
+
         mAddressEdit = finder.find(R.id.addressEdit);
         mAddressCheck = finder.find(R.id.addressCheck);
 
@@ -120,7 +98,7 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
                     mAdminInfo.setPhone(mPhoneEdit.getText().toString());
                     mAdminInfo.setSex(sex);
                     mAdminInfo.setStreet(mStreetEdit.getEditableText().toString());
-                    getPresenter().registerAdmin(mAdminInfo);
+                    getPresenter().registerFixedUser(mAdminInfo);
                 } else {
                     ToastUtils.toastShort("请连接设备WiFi");
                 }
@@ -136,22 +114,17 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
 
         getPresenter().InitAddress();
         getPresenter().bindWatcher();
+
     }
 
-
     @Override
-    protected RegisterPresenter createPresenter() {
-        return new RegisterPresenter();
+    protected FixedUserPresenter createPresenter() {
+        return new FixedUserPresenter();
     }
 
     @Override
     protected IUI getUI() {
         return this;
-    }
-
-    @Override
-    public void uncaughtException(Thread thread, Throwable ex) {
-        Logger.e(ex.toString());
     }
 
     @Override
@@ -220,13 +193,11 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
 
     @Override
     public TextView getText() {
-        return mEnterCount;
+        return null;
     }
 
     @Override
     public CheckBox getCheck() {
-        return mCheckBox;
+        return null;
     }
-
-
 }

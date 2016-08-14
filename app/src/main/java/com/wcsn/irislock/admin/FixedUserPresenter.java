@@ -1,7 +1,6 @@
-package com.wcsn.irislock.login;
+package com.wcsn.irislock.admin;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -40,49 +39,17 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by suiyue on 2016/6/14 0014.
+ * Created by suiyue on 2016/8/14 0014.
  */
-public class RegisterPresenter extends BasePresenter<IRegisterUI>{
+public class FixedUserPresenter extends BasePresenter<IFixedUserUI>{
 
     private Activity activity;
-    private ProgressDialog dialog;
     private String selectedProvince = "", selectedCity = "", selectedCounty = "";
     private boolean hideCounty=false;
     private BaseActivity mActivity;
 
-
-
     private ArrayList<AddressPicker.Province> data;
 
-    public void InitAddress(String... params) {
-        mActivity = getUI().getOwnerActivity();
-        if (params != null) {
-            switch (params.length) {
-                case 1:
-                    selectedProvince = params[0];
-                    break;
-                case 2:
-                    selectedProvince = params[0];
-                    selectedCity = params[1];
-                    break;
-                case 3:
-                    selectedProvince = params[0];
-                    selectedCity = params[1];
-                    selectedCounty = params[2];
-                    break;
-                default:
-                    break;
-            }
-        }
-        data = new ArrayList<>();
-        try {
-            String json = AssetsUtils.readText(getContext(), "city.json");
-            data.addAll(JSON.parseArray(json, AddressPicker.Province.class));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
     public void showAddressPicker() {
         if (data.size() > 0) {
             AddressPicker picker = new AddressPicker(getUI().getOwnerActivity(), data);
@@ -118,7 +85,41 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
         }
     }
 
-    public void bindWatcher () {
+    public void registerFixedUser(AdminInfo adminInfo) {
+        new SocketThread(adminInfo).run();
+    }
+
+    public void InitAddress(String... params) {
+
+        mActivity = getUI().getOwnerActivity();
+        if (params != null) {
+            switch (params.length) {
+                case 1:
+                    selectedProvince = params[0];
+                    break;
+                case 2:
+                    selectedProvince = params[0];
+                    selectedCity = params[1];
+                    break;
+                case 3:
+                    selectedProvince = params[0];
+                    selectedCity = params[1];
+                    selectedCounty = params[2];
+                    break;
+                default:
+                    break;
+            }
+        }
+        data = new ArrayList<>();
+        try {
+            String json = AssetsUtils.readText(getContext(), "city.json");
+            data.addAll(JSON.parseArray(json, AddressPicker.Province.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void bindWatcher() {
         getUI().getNameEdit().addTextChangedListener(new TextWatcher() {
             /**
              *
@@ -236,17 +237,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
         });
     }
 
-    public void registerAdmin(AdminInfo adminInfo) {
-
-        Logger.e(adminInfo.toString());
-
-        new SocketThread(adminInfo).run();
-
-
-    }
-
-    class SocketThread extends Thread {
-
+    private class SocketThread extends Thread{
         private AdminInfo mAdminInfo;
         /**
          * 0 表示连接上
@@ -254,16 +245,13 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
          * 2 发送用户信息
          */
         private int SocketType = 0;
-
         public SocketThread(AdminInfo adminInfo) {
             mAdminInfo = adminInfo;
         }
-
         private DaoUtils mDaoUtils;
 
         @Override
         public void run() {
-
             mDaoUtils = DaoUtils.getInstance(getUI().getOwnerActivity().getApplicationContext());
 
             Logger.e("SocketThread");
@@ -280,7 +268,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
             final User userInfo = new User();
             userInfo.setUser_name(mAdminInfo.getName());
             userInfo.setUser_info(jsonUserInfo);
-            userInfo.setUser_flag("0");
+            userInfo.setUser_flag("1");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             userInfo.setRegister_time(format.format(new Date()));
             userInfo.setUser_id("0");
@@ -325,7 +313,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
                                         .subscribe(new Action1<Long>() {
                                             @Override
                                             public void call(Long aLong) {
-                                               getUI().getText().setText("1");
+                                                getUI().getText().setText("1");
                                             }
                                         });
 
@@ -348,7 +336,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
 
                                 getUI().getText().setText("3");
                                 getUI().getCheck().setChecked(true);
-                                ToastUtils.toastShort("注册成功");
+                                ToastUtils.toastShort("虹膜扫描成功,请管理员扫描虹膜确认");
                                 getUI().getRegisterLayout().setVisibility(View.VISIBLE);
                                 getUI().getWaitRegisterLayout().setVisibility(View.GONE);
 

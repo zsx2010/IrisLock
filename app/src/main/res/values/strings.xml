@@ -57,4 +57,5 @@
     <string name="cancel">取消</string>
     <string name="monitor_picture">监控图片</string>
     <string name="sex">性别：</string>
+    <string name="newUserInfoFixed">新用户信息-永久</string>
 </resources>
