@@ -21,6 +21,7 @@ import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.admin.bean.TempUserInfo;
+import com.wcsn.irislock.admin.bean.UserInfo;
 import com.wcsn.irislock.app.App;
 
 import java.util.Calendar;
@@ -62,6 +63,9 @@ public class TempUserActivity extends BaseMVPActivity<TempUserPresenter> impleme
     private CheckBox friCheck;
     private CheckBox satCheck;
     private CheckBox sunCheck;
+
+    private UserInfo mUserInfo = new UserInfo();
+
 
 
     private int[] week = new int[7];
@@ -190,13 +194,16 @@ public class TempUserActivity extends BaseMVPActivity<TempUserPresenter> impleme
             @Override
             public void onClick(View v) {
                 if (NetworkUtils.getWifiSSID(getBaseContext()).startsWith(App.mWifiName)) {
+
+
                     mTempUserInfo.setName(mNameEdit.getText().toString());
-                    mTempUserInfo.setPhone(mPhoneEdit.getText().toString());
-                    mTempUserInfo.setSex(sex);
+                    mUserInfo.setPhone(mPhoneEdit.getText().toString());
+                    mUserInfo.setSex(sex);
                     mTempUserInfo.setStartDate(mStartDateText.getText().toString());
                     mTempUserInfo.setStopDate(mStopDateText.getText().toString());
                     mTempUserInfo.setStartTime(mStartTimeText.getText().toString());
                     mTempUserInfo.setStopTime(mStopTimeText.getText().toString());
+                    mTempUserInfo.setUserInfo(mUserInfo);
                     StringBuilder sb = new StringBuilder("");
                     for (int i=0; i<week.length; i++) {
                         sb.append(week[i]);

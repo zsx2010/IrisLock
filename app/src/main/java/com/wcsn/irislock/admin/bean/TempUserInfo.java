@@ -5,14 +5,14 @@ package com.wcsn.irislock.admin.bean;
  */
 public class TempUserInfo {
 
-    private String sex;
     private String name;
-    private String phone;
     private String startDate;
     private String stopDate;
     private String startTime;
     private String stopTime;
     private String week;
+
+    private UserInfo mUserInfo;
 
     public String getName() {
         return name;
@@ -22,28 +22,12 @@ public class TempUserInfo {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getStartTime() {
         return startTime;
     }
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public String getStartDate() {
@@ -78,17 +62,24 @@ public class TempUserInfo {
         this.week = week;
     }
 
+    public UserInfo getUserInfo() {
+        return mUserInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        mUserInfo = userInfo;
+    }
+
     @Override
     public String toString() {
         return "TempUserInfo{" +
-                "name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", phone='" + phone + '\'' +
+                "mUserInfo=" + mUserInfo.toString() +
+                ", name='" + name + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", stopDate='" + stopDate + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", stopTime='" + stopTime + '\'' +
-                ", week=" + week +
+                ", week='" + week + '\'' +
                 '}';
     }
 }

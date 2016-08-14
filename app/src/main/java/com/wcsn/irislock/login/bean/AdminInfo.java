@@ -1,21 +1,22 @@
 package com.wcsn.irislock.login.bean;
 
+import com.wcsn.irislock.admin.bean.UserInfo;
+
 /**
  * Created by suiyue on 2016/6/17 0017.
  */
 public class AdminInfo {
-    private String sex;
-    private String name;
-    private String phone;
-    private String address;
-    private String street;
 
-    public String getAddress() {
-        return address;
+    private String name;
+
+    private com.wcsn.irislock.admin.bean.UserInfo mUserInfo;
+
+    public com.wcsn.irislock.admin.bean.UserInfo getUserInfo() {
+        return mUserInfo;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUserInfo(UserInfo userInfo) {
+        mUserInfo = userInfo;
     }
 
     public String getName() {
@@ -26,38 +27,11 @@ public class AdminInfo {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
     @Override
     public String toString() {
         return "AdminInfo{" +
-                "address='" + address + '\'' +
-                ", sex='" + sex + '\'' +
+                "mUserInfo=" + mUserInfo +
                 ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", street='" + street + '\'' +
                 '}';
     }
 }

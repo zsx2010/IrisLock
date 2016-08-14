@@ -276,7 +276,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
 
 
             Gson gson = new Gson();
-            String jsonUserInfo = gson.toJson(mAdminInfo);
+            String jsonUserInfo = gson.toJson(mAdminInfo.getUserInfo());
             final User userInfo = new User();
             userInfo.setUser_name(mAdminInfo.getName());
             userInfo.setUser_info(jsonUserInfo);

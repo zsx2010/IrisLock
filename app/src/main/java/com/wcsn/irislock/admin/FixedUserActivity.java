@@ -20,6 +20,7 @@ import com.ImaginationUnlimited.library.utils.network.NetworkUtils;
 import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
+import com.wcsn.irislock.admin.bean.UserInfo;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.login.bean.AdminInfo;
 
@@ -47,6 +48,7 @@ public class FixedUserActivity extends BaseMVPActivity<FixedUserPresenter>
     private LinearLayout mWaitLayout;
 
     private AdminInfo mAdminInfo = new AdminInfo();
+    private UserInfo mUserInfo = new UserInfo();
 
     private ImageView mBackView;
     private ImageView mAddUserView;
@@ -131,12 +133,15 @@ public class FixedUserActivity extends BaseMVPActivity<FixedUserPresenter>
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (NetworkUtils.getWifiSSID(getBaseContext()).startsWith(App.mWifiName)) {
-                    mAdminInfo.setAddress(mAddressEdit.getText().toString());
+                if (NetworkUtils.getWifiSSID(getBaseContext()).contains(App.mWifiName)) {
+
+
+                    mUserInfo.setAddress(mAddressEdit.getText().toString());
                     mAdminInfo.setName(mNameEdit.getText().toString());
-                    mAdminInfo.setPhone(mPhoneEdit.getText().toString());
-                    mAdminInfo.setSex(sex);
-                    mAdminInfo.setStreet(mStreetEdit.getEditableText().toString());
+                    mUserInfo.setPhone(mPhoneEdit.getText().toString());
+                    mUserInfo.setSex(sex);
+                    mUserInfo.setStreet(mStreetEdit.getEditableText().toString());
+                    mAdminInfo.setUserInfo(mUserInfo);
                     getPresenter().registerFixedUser(mAdminInfo);
                 } else {
                     ToastUtils.toastShort("请连接设备WiFi");

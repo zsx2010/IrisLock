@@ -12,6 +12,7 @@ import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.wcsn.irislock.R;
+import com.wcsn.irislock.admin.bean.UserInfo;
 import com.wcsn.irislock.app.adapter.AHolder;
 import com.wcsn.irislock.bean.User;
 import com.wcsn.irislock.login.bean.AdminInfo;
@@ -93,10 +94,11 @@ public class AdminHolder extends AHolder{
         String userInfo = user.getUser_info();
         Gson gson = new Gson();
         AdminInfo adminInfo = gson.fromJson(userInfo, AdminInfo.class);
+        UserInfo info = adminInfo.getUserInfo();
 
-        mSexText.setText(adminInfo.getSex());
-        mPhoneText.setText(adminInfo.getPhone());
-        mAddressText.setText(adminInfo.getAddress() + " " + adminInfo.getStreet());
+        mSexText.setText(info.getSex());
+        mPhoneText.setText(info.getPhone());
+        mAddressText.setText(info.getAddress() + " " + info.getStreet());
         mUserNameText.setText(adminInfo.getName());
 
         mUserTypeText.setOnClickListener(new View.OnClickListener() {

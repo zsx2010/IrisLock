@@ -153,7 +153,7 @@ public class TempUserPresenter extends BasePresenter<ITempUserUI> {
 
 
             Gson gson = new Gson();
-            String jsonUserInfo = gson.toJson(mTempUserInfo);
+            String jsonUserInfo = gson.toJson(mTempUserInfo.getUserInfo());
             final User userInfo = new User();
             userInfo.setUser_name(mTempUserInfo.getName());
             userInfo.setUser_info(jsonUserInfo);

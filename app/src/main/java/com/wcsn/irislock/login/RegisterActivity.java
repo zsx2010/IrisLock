@@ -20,6 +20,7 @@ import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wcsn.irislock.R;
+import com.wcsn.irislock.admin.bean.UserInfo;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.login.bean.AdminInfo;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
@@ -51,6 +52,7 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
     private CheckBox mCheckBox;
 
     private AdminInfo mAdminInfo = new AdminInfo();
+    private UserInfo mUserInfo = new UserInfo();
 
     private String sex = "male";
 
@@ -114,12 +116,14 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter>
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Logger.e("wifi = " + NetworkUtils.getWifiSSID(getBaseContext()));
                 if (NetworkUtils.getWifiSSID(getBaseContext()).startsWith(App.mWifiName)) {
-                    mAdminInfo.setAddress(mAddressEdit.getText().toString());
+                    mUserInfo.setAddress(mAddressEdit.getText().toString());
                     mAdminInfo.setName(mNameEdit.getText().toString());
-                    mAdminInfo.setPhone(mPhoneEdit.getText().toString());
-                    mAdminInfo.setSex(sex);
-                    mAdminInfo.setStreet(mStreetEdit.getEditableText().toString());
+                    mUserInfo.setPhone(mPhoneEdit.getText().toString());
+                    mUserInfo.setSex(sex);
+                    mUserInfo.setStreet(mStreetEdit.getEditableText().toString());
+                    mAdminInfo.setUserInfo(mUserInfo);
                     getPresenter().registerAdmin(mAdminInfo);
                 } else {
                     ToastUtils.toastShort("请连接设备WiFi");
