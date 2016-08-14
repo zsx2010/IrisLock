@@ -16,9 +16,12 @@ import com.ImaginationUnlimited.library.app.BaseActivity;
 import com.ImaginationUnlimited.library.app.mvp.BaseMVPActivity;
 import com.ImaginationUnlimited.library.app.mvp.IUI;
 import com.ImaginationUnlimited.library.utils.log.Logger;
+import com.ImaginationUnlimited.library.utils.network.NetworkUtils;
+import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.admin.bean.TempUserInfo;
+import com.wcsn.irislock.app.App;
 
 import java.util.Calendar;
 
@@ -186,19 +189,24 @@ public class TempUserActivity extends BaseMVPActivity<TempUserPresenter> impleme
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTempUserInfo.setName(mNameEdit.getText().toString());
-                mTempUserInfo.setPhone(mPhoneEdit.getText().toString());
-                mTempUserInfo.setSex(sex);
-                mTempUserInfo.setStartDate(mStartDateText.getText().toString());
-                mTempUserInfo.setStopDate(mStopDateText.getText().toString());
-                mTempUserInfo.setStartTime(mStartTimeText.getText().toString());
-                mTempUserInfo.setStopTime(mStopTimeText.getText().toString());
-                StringBuilder sb = new StringBuilder("");
-                for (int i=0; i<week.length; i++) {
-                    sb.append(week[i]);
+                if (NetworkUtils.getWifiSSID(getBaseContext()).startsWith(App.mWifiName)) {
+                    mTempUserInfo.setName(mNameEdit.getText().toString());
+                    mTempUserInfo.setPhone(mPhoneEdit.getText().toString());
+                    mTempUserInfo.setSex(sex);
+                    mTempUserInfo.setStartDate(mStartDateText.getText().toString());
+                    mTempUserInfo.setStopDate(mStopDateText.getText().toString());
+                    mTempUserInfo.setStartTime(mStartTimeText.getText().toString());
+                    mTempUserInfo.setStopTime(mStopTimeText.getText().toString());
+                    StringBuilder sb = new StringBuilder("");
+                    for (int i=0; i<week.length; i++) {
+                        sb.append(week[i]);
+                    }
+                    mTempUserInfo.setWeek(sb.toString());
+                    getPresenter().registerTemp(mTempUserInfo);
+                } else {
+                    ToastUtils.toastShort("请连接设备WiFi");
                 }
-                mTempUserInfo.setWeek(sb.toString());
-                getPresenter().registerTemp(mTempUserInfo);
+
 
             }
         });
