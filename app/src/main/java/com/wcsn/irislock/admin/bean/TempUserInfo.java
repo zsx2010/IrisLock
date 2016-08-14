@@ -1,7 +1,5 @@
 package com.wcsn.irislock.admin.bean;
 
-import java.util.List;
-
 /**
  * Created by suiyue on 2016/7/9 0009.
  */
@@ -14,7 +12,7 @@ public class TempUserInfo {
     private String stopDate;
     private String startTime;
     private String stopTime;
-    private List<Integer> week;
+    private String week;
 
     public String getName() {
         return name;
@@ -72,11 +70,11 @@ public class TempUserInfo {
         this.stopTime = stopTime;
     }
 
-    public List<Integer> getWeek() {
+    public String getWeek() {
         return week;
     }
 
-    public void setWeek(List<Integer> week) {
+    public void setWeek(String week) {
         this.week = week;
     }
 

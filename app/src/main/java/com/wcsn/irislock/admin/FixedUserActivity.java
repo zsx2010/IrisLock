@@ -1,11 +1,13 @@
 package com.wcsn.irislock.admin;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -20,6 +22,8 @@ import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.login.bean.AdminInfo;
+
+import cn.qqtheme.framework.picker.OptionPicker;
 
 /**
  * Created by suiyue on 2016/8/14 0014.
@@ -44,6 +48,9 @@ public class FixedUserActivity extends BaseMVPActivity<FixedUserPresenter>
 
     private AdminInfo mAdminInfo = new AdminInfo();
 
+    private ImageView mBackView;
+    private ImageView mAddUserView;
+
     private String sex = "male";
 
     private TextView mEnterCount;
@@ -58,6 +65,38 @@ public class FixedUserActivity extends BaseMVPActivity<FixedUserPresenter>
     protected void onCreateExecute(Bundle savedInstanceState) {
         setContentView(R.layout.activity_add_fixed_user);
         ViewFinder finder = new ViewFinder(this);
+
+        mBackView = finder.find(R.id.back);
+        mBackView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        mAddUserView = finder.find(R.id.addUser);
+        mAddUserView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OptionPicker picker = new OptionPicker(FixedUserActivity.this, new String[]{"永久用户", "临时用户"});
+                picker.setOffset(1);
+                picker.setSelectedIndex(1);
+                picker.setTextSize(24);
+                picker.setLineColor(Color.GRAY);
+                picker.setTitleText("添加用户");
+                picker.setOnOptionPickListener(new OptionPicker.OnOptionPickListener() {
+                    @Override
+                    public void onOptionPicked(String option) {
+                        if (option.equals("永久用户")) {
+                            FixedUserActivity.launch(FixedUserActivity.this);
+                        } else {
+                            TempUserActivity.launch(FixedUserActivity.this);
+                        }
+                    }
+                });
+                picker.show();
+            }
+        });
 
         mNameEdit = finder.find(R.id.nameEdit);
         mNameCheck = finder.find(R.id.nameCheck);
@@ -193,11 +232,11 @@ public class FixedUserActivity extends BaseMVPActivity<FixedUserPresenter>
 
     @Override
     public TextView getText() {
-        return null;
+        return mEnterCount;
     }
 
     @Override
     public CheckBox getCheck() {
-        return null;
+        return mCheckBox;
     }
 }

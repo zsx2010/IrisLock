@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -12,7 +12,7 @@
         android:background="@color/colorIngigo"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/adminBack"
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_keyboard_arrow_left_white_18dp"
@@ -38,7 +38,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleLayout">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -256,12 +257,38 @@
                         android:layout_centerVertical="true"
                         />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/chooseTime"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/arrow_right"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"/>
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_centerVertical="true">
+                        <TextView
+                            android:id="@+id/startTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/zero_clock"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textSize="@dimen/text_size_standard"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/zhi"
+                            android:textColor="@color/colorIngigo"
+                            android:textSize="@dimen/text_size_standard"/>
+                        <TextView
+                            android:id="@+id/stopTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="@string/zero_clock"
+                            android:textSize="@dimen/text_size_standard"/>
+                    </LinearLayout>
                 </RelativeLayout>
                 <View
                     android:id="@+id/line3"
@@ -290,9 +317,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:checked="true"
+                            android:checked="false"
                             android:button="@drawable/checkbox_bg"
-                            android:clickable="false"
                             android:text="@string/mon"
                             android:textColor="@color/colorIngigo"/>
                         <CheckBox
@@ -300,9 +326,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:checked="true"
+                            android:checked="false"
                             android:button="@drawable/checkbox_bg"
-                            android:clickable="false"
                             android:text="@string/tus"
                             android:textColor="@color/colorIngigo"/>
                         <CheckBox
@@ -310,9 +335,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:checked="true"
+                            android:checked="false"
                             android:button="@drawable/checkbox_bg"
-                            android:clickable="false"
                             android:text="@string/wed"
                             android:textColor="@color/colorIngigo"/>
                         <CheckBox
@@ -320,9 +344,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:checked="true"
+                            android:checked="false"
                             android:button="@drawable/checkbox_bg"
-                            android:clickable="false"
                             android:text="@string/thu"
                             android:textColor="@color/colorIngigo"/>
 
@@ -338,9 +361,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:checked="true"
+                            android:checked="false"
                             android:button="@drawable/checkbox_bg"
-                            android:clickable="false"
                             android:text="@string/fri"
                             android:textColor="@color/colorIngigo"/>
                         <CheckBox
@@ -348,9 +370,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:checked="true"
+                            android:checked="false"
                             android:button="@drawable/checkbox_bg"
-                            android:clickable="false"
                             android:text="@string/sat"
                             android:textColor="@color/colorIngigo"/>
                         <CheckBox
@@ -358,9 +379,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:checked="true"
+                            android:checked="false"
                             android:button="@drawable/checkbox_bg"
-                            android:clickable="false"
                             android:text="@string/sun"
                             android:textColor="@color/colorIngigo"/>
                         <CheckBox
@@ -376,16 +396,16 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/validityTimeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/Red"
-                        android:textSize="@dimen/text_size_standard"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center"
-                        android:text="@string/admin"
-                        />
+                    <!--<TextView-->
+                        <!--android:id="@+id/validityTimeText"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/Red"-->
+                        <!--android:textSize="@dimen/text_size_standard"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:text="@string/admin"-->
+                        <!--/>-->
 
                 </LinearLayout>
 
@@ -404,4 +424,4 @@
 
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

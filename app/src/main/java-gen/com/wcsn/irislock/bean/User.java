@@ -147,4 +147,19 @@ public class User implements Serializable{
         this.iris_path = iris_path;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", user_id='" + user_id + '\'' +
+                ", user_name='" + user_name + '\'' +
+                ", user_info='" + user_info + '\'' +
+                ", user_flag='" + user_flag + '\'' +
+                ", valid_time_start='" + valid_time_start + '\'' +
+                ", valid_time_stop='" + valid_time_stop + '\'' +
+                ", valid_time_week='" + valid_time_week + '\'' +
+                ", register_time='" + register_time + '\'' +
+                ", iris_path='" + iris_path + '\'' +
+                '}';
+    }
 }

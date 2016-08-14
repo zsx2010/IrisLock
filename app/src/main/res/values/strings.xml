@@ -32,7 +32,7 @@
     <string name="idValidityTime">身份有效期</string>
     <string name="yearMonthDay">年-\t\t月-\t\t日-\t\t</string>
     <string name="zhi">至</string>
-    <string name="idValidityLength">身份有效时间段</string>
+    <string name="idValidityLength">有效时段</string>
     <string name="assuredAdd">确认添加</string>
     <string name="mon">星期一</string>
     <string name="tus">星期二</string>
@@ -58,4 +58,5 @@
     <string name="monitor_picture">监控图片</string>
     <string name="sex">性别：</string>
     <string name="newUserInfoFixed">新用户信息-永久</string>
+    <string name="zero_clock">0:00</string>
 </resources>
