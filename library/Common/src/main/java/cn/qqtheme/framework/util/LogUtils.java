@@ -52,7 +52,7 @@ public class LogUtils {
             try {
                 Log.d(debugTag + "-" + tag, message);
             } catch (Exception e) {
-                System.out.println(tag + ">>>" + message);
+//                System.out.println(tag + ">>>" + message);
             }
         }
     }
@@ -106,7 +106,7 @@ public class LogUtils {
             try {
                 Log.w(debugTag + tag, message);
             } catch (Exception e) {
-                System.out.println(debugTag + ">>>" + message);
+//                System.out.println(debugTag + ">>>" + message);
             }
         }
     }
@@ -160,7 +160,7 @@ public class LogUtils {
             try {
                 Log.e(debugTag + tag, message);
             } catch (Exception e) {
-                System.out.println(debugTag + ">>>" + message);
+//                System.out.println(debugTag + ">>>" + message);
             }
         }
     }

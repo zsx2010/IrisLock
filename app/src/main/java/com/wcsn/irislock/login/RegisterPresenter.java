@@ -21,10 +21,11 @@ import com.vilyever.socketclient.SocketClient;
 import com.vilyever.socketclient.helper.SocketClientAddress;
 import com.vilyever.socketclient.helper.SocketClientDelegate;
 import com.vilyever.socketclient.helper.SocketResponsePacket;
+import com.wcsn.irislock.bean.User;
 import com.wcsn.irislock.home.MainActivity;
 import com.wcsn.irislock.login.bean.AdminInfo;
-import com.wcsn.irislock.login.bean.UserInfo;
 import com.wcsn.irislock.utils.AssetsUtils;
+import com.wcsn.irislock.utils.DaoUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -258,10 +259,12 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
             mAdminInfo = adminInfo;
         }
 
-
+        private DaoUtils mDaoUtils;
 
         @Override
         public void run() {
+
+            mDaoUtils = DaoUtils.getInstance(getUI().getOwnerActivity().getApplicationContext());
 
             Logger.e("SocketThread");
 
@@ -274,7 +277,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
 
             Gson gson = new Gson();
             String jsonUserInfo = gson.toJson(mAdminInfo);
-            UserInfo userInfo = new UserInfo();
+            final User userInfo = new User();
             userInfo.setUser_name(mAdminInfo.getName());
             userInfo.setUser_info(jsonUserInfo);
             userInfo.setUser_flag("1");
@@ -348,6 +351,9 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
                                 ToastUtils.toastShort("注册成功");
                                 getUI().getRegisterLayout().setVisibility(View.VISIBLE);
                                 getUI().getWaitRegisterLayout().setVisibility(View.GONE);
+
+                                mDaoUtils.saveUser(userInfo);
+
                                 SocketType = 0;
                                 break;
 
