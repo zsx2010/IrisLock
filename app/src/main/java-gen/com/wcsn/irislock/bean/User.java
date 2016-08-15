@@ -9,6 +9,9 @@ import java.io.Serializable;
  */
 public class User implements Serializable{
 
+    private final static int USER_ADMIN = 0;
+
+
     private Long id;
     /** Not-null value. */
     private String user_id;

@@ -22,6 +22,8 @@ public class SPModel {
 
     private static final String KEY_POWER = "KeyPower";
 
+    private static final String KEY_ADMIN = "KeyAdmin";
+
     private static String socketIp = "192.168.1.1";
     private static int socketPort = 12345;
 
@@ -45,6 +47,14 @@ public class SPModel {
         return SPUtils.getInstance().getString(KEY_POWER,"100");
     }
 
+
+    public static void putAdmin(boolean hasAdmin) {
+        SPUtils.getInstance().putBoolean(KEY_ADMIN, hasAdmin);
+    }
+
+    public static boolean getAdmin() {
+        return SPUtils.getInstance().getBoolean(KEY_ADMIN, false);
+    }
 
     public static void putIsAuthorize(boolean isAuthorize) {
         SPUtils.getInstance().putBoolean(KEY_IS_AUTHORIZE, isAuthorize);

@@ -23,6 +23,7 @@ import com.vilyever.socketclient.helper.SocketClientDelegate;
 import com.vilyever.socketclient.helper.SocketResponsePacket;
 import com.wcsn.irislock.bean.User;
 import com.wcsn.irislock.home.MainActivity;
+import com.wcsn.irislock.information.InformationActivity;
 import com.wcsn.irislock.login.bean.AdminInfo;
 import com.wcsn.irislock.utils.AssetsUtils;
 import com.wcsn.irislock.utils.DaoUtils;
@@ -302,7 +303,12 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
                 @Override
                 public void onDisconnected(SocketClient socketClient) {
                     Logger.e("Socket 连接断开");
-                    MainActivity.launch(mActivity);
+                    if (SPModel.getAdmin()) {
+                        MainActivity.launch(mActivity);
+                    } else {
+                        InformationActivity.launch(mActivity);
+                    }
+
                 }
 
                 @Override
@@ -354,9 +360,10 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
 
                                 mDaoUtils.saveUser(userInfo);
 
+                                SPModel.putAdmin(true);
+
                                 SocketType = 0;
                                 break;
-
                         }
 
                     } else {
@@ -374,6 +381,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
                                 getUI().getRegisterLayout().setVisibility(View.VISIBLE);
                                 getUI().getWaitRegisterLayout().setVisibility(View.GONE);
 
+                                SPModel.putAdmin(false);
                                 SocketType = 0;
                                 break;
                         }
