@@ -23,7 +23,6 @@ import com.vilyever.socketclient.helper.SocketClientDelegate;
 import com.vilyever.socketclient.helper.SocketResponsePacket;
 import com.wcsn.irislock.bean.User;
 import com.wcsn.irislock.home.MainActivity;
-import com.wcsn.irislock.information.InformationActivity;
 import com.wcsn.irislock.login.bean.AdminInfo;
 import com.wcsn.irislock.utils.AssetsUtils;
 import com.wcsn.irislock.utils.DaoUtils;
@@ -306,7 +305,8 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
                     if (SPModel.getAdmin()) {
                         MainActivity.launch(mActivity);
                     } else {
-                        InformationActivity.launch(mActivity);
+                        ToastUtils.toastShort("注册失败，请重新操作");
+                        AdminOrVisitorActivity.launch(mActivity);
                     }
 
                 }

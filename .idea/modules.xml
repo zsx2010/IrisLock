@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/library/ColorPicker/ColorPicker.iml" filepath="$PROJECT_DIR$/library/ColorPicker/ColorPicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/Common/Common.iml" filepath="$PROJECT_DIR$/library/Common/Common.iml" />
       <module fileurl="file://$PROJECT_DIR$/CoreLibrary/CoreLibrary.iml" filepath="$PROJECT_DIR$/CoreLibrary/CoreLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/IrisCommon/IrisCommon.iml" filepath="$PROJECT_DIR$/IrisCommon/IrisCommon.iml" />

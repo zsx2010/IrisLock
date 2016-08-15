@@ -1,7 +1,6 @@
 package com.ImaginationUnlimited.GifKeyboard.gifkeycommon.sp;
 
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.entity.AuthorizeInfo;
-import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.entity.User;
 import com.ImaginationUnlimited.library.utils.app.StringUtils;
 import com.google.gson.Gson;
 
@@ -12,7 +11,6 @@ import com.google.gson.Gson;
 public class SPModel {
 
     private static final String KEY_DEVICE_ID = "keyDeviceId";
-    private static final String KEY_USER = "keyUser";
 
     private static final String KEY_SOCKET_IP = "KeySocketIp";
     private static final String KEY_SOCKET_PORT = "KeySocketPort";
@@ -28,7 +26,11 @@ public class SPModel {
     private static int socketPort = 12345;
 
     public static void clean(){
-        putUser(null);
+        putAdmin(false);
+        putDevieceId(null);
+        putPower(null);
+        putIsAuthorize(false);
+        putAuthorize(null);
     }
 
     public static void putDevieceId(String deviceId){
@@ -78,24 +80,6 @@ public class SPModel {
         String json = SPUtils.getInstance().getString(KEY_AUTHORIZE_INFO,"");
         if(!StringUtils.isNullOrEmpty(json)){
             return new Gson().fromJson(json,AuthorizeInfo.class);
-        }
-        return null;
-    }
-
-
-    public static void putUser(User user){
-        String json = null;
-        if(user != null){
-            json = new Gson().toJson(user);
-        }
-        SPUtils.getInstance().putString(KEY_USER,json);
-    }
-
-
-    public static User getUser(){
-        String json = SPUtils.getInstance().getString(KEY_USER,"");
-        if(!StringUtils.isNullOrEmpty(json)){
-            return new Gson().fromJson(json,User.class);
         }
         return null;
     }

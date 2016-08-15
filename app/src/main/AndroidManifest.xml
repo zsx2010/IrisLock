@@ -39,7 +39,8 @@
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
             android:theme="@android:style/Theme.NoTitleBar"
-            android:exported="false">
+            android:exported="false"
+            >
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -132,34 +133,48 @@
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="f159b5f65b667fb5d3041418" /> <!-- </>值来自开发者平台取得的AppKey-->
 
-        <activity android:name=".launch.LaunchActivity">
+        <activity android:name=".launch.LaunchActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>>
-        <activity android:name=".home.MainActivity"/>
+        <activity android:name=".home.MainActivity"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name=".login.RegisterActivity"/>
-        <activity android:name=".login.RegisterOrLoginActivity"/>
-        <activity android:name=".login.AdminCheckActivity"/>
-        <activity android:name=".login.AdminOrVisitorActivity"/>
+        <activity android:name=".login.RegisterActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".login.RegisterOrLoginActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".login.AdminCheckActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".login.AdminOrVisitorActivity"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name=".alert.AlertActivity"/>
+        <activity android:name=".alert.AlertActivity"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name=".information.InformationActivity"/>
+        <activity android:name=".information.InformationActivity"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name=".admin.AdminActivity"/>
-        <activity android:name=".admin.TempUserActivity"/>
+        <activity android:name=".admin.AdminActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".admin.TempUserActivity"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name=".authorize.AuthorizeActivity"/>
+        <activity android:name=".authorize.AuthorizeActivity"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name=".authorize.AuthorizeListActivity"/>
+        <activity android:name=".authorize.AuthorizeListActivity"
+                  android:screenOrientation="portrait"/>
         
-        <activity android:name=".monitor.MonitorActivity"/>
+        <activity android:name=".monitor.MonitorActivity"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name=".admin.FixedUserActivity"/>
+        <activity android:name=".admin.FixedUserActivity"
+                  android:screenOrientation="portrait"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>

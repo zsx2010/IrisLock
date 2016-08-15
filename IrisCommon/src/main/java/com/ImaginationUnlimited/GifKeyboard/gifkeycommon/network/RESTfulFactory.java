@@ -2,10 +2,6 @@ package com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network;
 
 import android.util.Log;
 
-import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.service.DownloadService;
-import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.service.GifService;
-import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.service.SearchService;
-import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.service.TagService;
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.service.UserService;
 
 import java.io.IOException;
@@ -37,40 +33,10 @@ public class RESTfulFactory {
         return URL_BASE;
     }
 
-    // Gif列表相关的接口对象
-    private static GifService sGifService = null;
-
-    // 搜索相关的接口对象
-    private static SearchService sSearchService = null;
 
     // 用户相关的接口对象
     private static UserService sUserService = null;
 
-    //tag
-    private static TagService sTagService = null;
-
-    //download
-    private static DownloadService sDownloadService = null;
-
-    //天气
-
-    public static DownloadService getDownloadService(){
-        if(null == sDownloadService){
-            sDownloadService = create(DownloadService.class);
-        }
-        return sDownloadService;
-    }
-
-    /**
-     * 得到GifService
-     * @return GifService
-     */
-    public static GifService getGifService(){
-        if(null == sGifService){
-            sGifService = create(GifService.class);
-        }
-        return sGifService;
-    }
     /**
      * 得到 UserService
      * @return UserService
@@ -80,24 +46,6 @@ public class RESTfulFactory {
             sUserService = create(UserService.class);
         }
         return sUserService;
-    }
-
-    /**
-     * 得到SearchService
-     * @return SearchService
-     */
-    public static SearchService getSearchService(){
-        if(null == sSearchService){
-            sSearchService = create(SearchService.class);
-        }
-        return sSearchService;
-    }
-
-    public static TagService getTagService(){
-        if(null == sTagService){
-            sTagService = create(TagService.class);
-        }
-        return sTagService;
     }
 
     private static <T> T create(Class<T> clazz){
