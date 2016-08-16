@@ -175,6 +175,9 @@
 
         <activity android:name=".admin.FixedUserActivity"
                   android:screenOrientation="portrait"/>
+
+        <activity android:name=".settings.SettingsActivity"
+                  android:screenOrientation="portrait"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>

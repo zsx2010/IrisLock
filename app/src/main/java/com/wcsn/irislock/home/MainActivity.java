@@ -25,6 +25,7 @@ import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.authorize.AuthorizeActivity;
 import com.wcsn.irislock.authorize.AuthorizeListActivity;
 import com.wcsn.irislock.monitor.MonitorActivity;
+import com.wcsn.irislock.settings.SettingsActivity;
 import com.wcsn.irislock.utils.image.ImageLoaderFactory;
 
 import cn.jpush.android.api.JPushInterface;
@@ -59,6 +60,12 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
         mTemperatureTextView = finder.find(R.id.temperatureTextView);
         mWeatherTextView = finder.find(R.id.weatherTextView);
         mSettingView = finder.find(R.id.setting);
+        mSettingView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingsActivity.launch(MainActivity.this);
+            }
+        });
 
         mIrisImage = finder.find(R.id.irisImage);
 

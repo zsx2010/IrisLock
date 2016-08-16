@@ -59,4 +59,9 @@
     <string name="sex">性别：</string>
     <string name="newUserInfoFixed">新用户信息-永久</string>
     <string name="zero_clock">0:00</string>
+    <string name="settings">设置</string>
+    <string name="networkConnection">网络连接</string>
+    <string name="passwordSetting">密码设置</string>
+    <string name="soundSetting">声音设置</string>
+    <string name="about">关于</string>
 </resources>
