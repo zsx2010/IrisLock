@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
 
-
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:paddingLeft="@dimen/left_margin">
+        android:padding="@dimen/left_margin"
+        >
+        <ImageView
+            android:id="@+id/deleteView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_delete"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            />
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/alertTypeView"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/deleteView"
             />
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:orientation="vertical"
-            android:layout_toRightOf="@+id/alertTypeView">
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/alertTypeView"
+            android:layout_toLeftOf="@+id/detailLayout">
             <TextView
                 android:id="@+id/timeText"
                 android:layout_width="wrap_content"
@@ -39,31 +52,133 @@
                 android:textColor="@color/colorIngigo"
                 android:textSize="@dimen/text_size_standard"
                 android:text="@string/app_name"/>
+            <TextView
+                android:id="@+id/alertInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorIngigo"
+                android:textSize="@dimen/text_size_standard"
+                android:text="@string/app_name"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/openDoorLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/layout"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/alertImage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/takeTime"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/text_size_little"
+                android:layout_gravity="center"
+                android:text="@string/services_phone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/powerLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/layout"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            >
+            <TextView
+                android:id="@+id/powerStateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_standard"
+                android:textColor="@color/colorIngigo"/>
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/powerImage"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                app:actualImageScaleType="center"/>
+            <TextView
+                android:id="@+id/powerText"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/text_size_date"
+                android:layout_gravity="center"
+                android:text="@string/services_phone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/serverLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/layout"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorIngigo"
+                android:textSize="@dimen/text_size_standard"
+                android:layout_gravity="center"
+                android:text="@string/tell_us"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/text_size_date"
+                android:layout_gravity="center"
+                android:text="@string/services_phone"/>
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/detailText"
-            android:layout_toLeftOf="@+id/detailImage"
+        <LinearLayout
+            android:id="@+id/detailLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/text_size_standard"
-            android:textColor="@color/colorIngigo"
-            android:text="@string/app_name"/>
-        <ImageView
-            android:id="@+id/detailImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_keyboard_arrow_right_black_18dp"
-            android:paddingRight="@dimen/left_margin"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:id="@+id/detailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_standard"
+                android:textColor="@color/colorIngigo"
+                android:text="@string/app_name"/>
+            <ImageView
+                android:id="@+id/detailImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_keyboard_arrow_right_black_18dp"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+
+
     </RelativeLayout>
     <TextView
         android:id="@+id/deleteButton"
         android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_height="match_parent"
         android:textColor="@android:color/white"
         android:layout_gravity="end"
         android:gravity="center"

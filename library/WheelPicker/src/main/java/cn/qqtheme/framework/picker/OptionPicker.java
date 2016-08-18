@@ -101,7 +101,7 @@ public class OptionPicker extends WheelPicker {
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setGravity(Gravity.CENTER);
         WheelView optionView = new WheelView(activity);
-        optionView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+        optionView.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
         optionView.setTextSize(textSize);
         optionView.setTextColor(textColorNormal, textColorFocus);
         optionView.setLineVisible(lineVisible);

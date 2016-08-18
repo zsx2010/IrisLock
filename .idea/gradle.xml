@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/daogenerator" />
             <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/library/ColorPicker" />
             <option value="$PROJECT_DIR$/library/Common" />
             <option value="$PROJECT_DIR$/library/WheelPicker" />
           </set>
@@ -27,7 +26,6 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/daogenerator" />
             <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/library/ColorPicker" />
             <option value="$PROJECT_DIR$/library/Common" />
             <option value="$PROJECT_DIR$/library/WheelPicker" />
           </set>

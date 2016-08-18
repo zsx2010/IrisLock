@@ -19,4 +19,12 @@ public class AlertPresenter extends BasePresenter<IAlertUI> {
         getUI().getAdapter().updateList(alerts);
     }
 
+    public void deleteItem(int position) {
+        Alert alert = (Alert) getUI().getAdapter().getCurrentItem(position);
+        mDaoUtils.deleteAlert(alert);
+    }
+
+    public void deleteAll() {
+        mDaoUtils.deleteAlert();
+    }
 }

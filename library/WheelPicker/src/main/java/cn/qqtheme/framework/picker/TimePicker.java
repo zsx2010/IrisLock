@@ -36,6 +36,7 @@ public class TimePicker extends WheelPicker {
     private int mode;
     private String hourLabel = "时", minuteLabel = "分";
     private String selectedHour = "", selectedMinute = "";
+    private boolean mIsMinute;
 
     /**
      * 安卓开发应避免使用枚举类（enum），因为相比于静态常量enum会花费两倍以上的内存。
@@ -52,7 +53,7 @@ public class TimePicker extends WheelPicker {
      * @param activity the activity
      */
     public TimePicker(Activity activity) {
-        this(activity, HOUR_OF_DAY);
+        this(activity, HOUR_OF_DAY, true);
     }
 
     /**
@@ -63,9 +64,10 @@ public class TimePicker extends WheelPicker {
      * @see #HOUR_OF_DAY
      * @see #HOUR
      */
-    public TimePicker(Activity activity, @Mode int mode) {
+    public TimePicker(Activity activity, @Mode int mode, boolean isMinute) {
         super(activity);
         this.mode = mode;
+        this.mIsMinute = isMinute;
         selectedHour = DateUtils.fillZero(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
         selectedMinute = DateUtils.fillZero(Calendar.getInstance().get(Calendar.MINUTE));
     }
@@ -108,20 +110,22 @@ public class TimePicker extends WheelPicker {
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setGravity(Gravity.CENTER);
         WheelView hourView = new WheelView(activity);
-        hourView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+        hourView.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
         hourView.setTextSize(textSize);
         hourView.setTextColor(textColorNormal, textColorFocus);
         hourView.setLineVisible(lineVisible);
         hourView.setLineColor(lineColor);
         layout.addView(hourView);
         TextView hourTextView = new TextView(activity);
-        hourTextView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+        hourTextView.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
         hourTextView.setTextSize(textSize);
         hourTextView.setTextColor(textColorFocus);
         if (!TextUtils.isEmpty(hourLabel)) {
             hourTextView.setText(hourLabel);
         }
         layout.addView(hourTextView);
+
+
         WheelView minuteView = new WheelView(activity);
         minuteView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
         minuteView.setTextSize(textSize);
@@ -138,17 +142,8 @@ public class TimePicker extends WheelPicker {
             minuteTextView.setText(minuteLabel);
         }
         layout.addView(minuteTextView);
-        ArrayList<String> hours = new ArrayList<String>();
-        if (mode == HOUR) {
-            for (int i = 1; i <= 12; i++) {
-                hours.add(DateUtils.fillZero(i));
-            }
-        } else {
-            for (int i = 0; i < 24; i++) {
-                hours.add(DateUtils.fillZero(i));
-            }
-        }
-        hourView.setItems(hours, selectedHour);
+
+
         ArrayList<String> minutes = new ArrayList<String>();
         for (int i = 0; i < 60; i++) {
             minutes.add(DateUtils.fillZero(i));
@@ -166,6 +161,25 @@ public class TimePicker extends WheelPicker {
                 selectedMinute = item;
             }
         });
+
+        if (mIsMinute) {
+            minuteView.setVisibility(View.VISIBLE);
+        } else {
+            minuteView.setVisibility(View.GONE);
+        }
+
+        ArrayList<String> hours = new ArrayList<String>();
+        if (mode == HOUR) {
+            for (int i = 1; i <= 12; i++) {
+                hours.add(DateUtils.fillZero(i));
+            }
+        } else {
+            for (int i = 0; i < 24; i++) {
+                hours.add(DateUtils.fillZero(i));
+            }
+        }
+        hourView.setItems(hours, selectedHour);
+
         return layout;
     }
 

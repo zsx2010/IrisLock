@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.mvp.model.ListModel;
-import com.ImaginationUnlimited.library.utils.log.Logger;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.App;
 import com.wcsn.irislock.app.adapter.PagerAdapter;
@@ -29,8 +28,6 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
 
     public boolean isRemove = false;
 
-    public boolean isDetail = false;
-
     interface DeleteCallBack {
         void removeItem(int position);
     }
@@ -38,7 +35,6 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
 
     @Override
     public int getHorizontalRange(RecyclerView.ViewHolder holder) {
-        Logger.e(holder.itemView.getClass().toString());
         if (holder.itemView instanceof LinearLayout) {
             ViewGroup viewGroup = (ViewGroup) holder.itemView;
             if(viewGroup.getChildCount() == 2){
@@ -78,7 +74,7 @@ public class AlertListAdapter extends PagerAdapter<Alert, ListModel<Alert>,
     @Override
     public void onBindViewHolder(AlertHolder holder, int position) {
         Alert alert = getCurrentItem(position);
-        holder.bindData(alert, isRemove, isDetail);
+        holder.bindData(alert, isRemove);
     }
 
     @Override

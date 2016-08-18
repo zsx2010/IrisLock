@@ -2,9 +2,11 @@ package com.wcsn.irislock.login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.sp.SPModel;
@@ -12,24 +14,30 @@ import com.ImaginationUnlimited.library.app.BaseActivity;
 import com.ImaginationUnlimited.library.app.mvp.BasePresenter;
 import com.ImaginationUnlimited.library.utils.app.StringUtils;
 import com.ImaginationUnlimited.library.utils.log.Logger;
+import com.ImaginationUnlimited.library.utils.toast.ToastUtils;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.vilyever.socketclient.SocketClient;
 import com.vilyever.socketclient.helper.SocketClientAddress;
 import com.vilyever.socketclient.helper.SocketClientDelegate;
-import com.vilyever.socketclient.helper.SocketPacket;
 import com.vilyever.socketclient.helper.SocketResponsePacket;
+import com.wcsn.irislock.bean.User;
 import com.wcsn.irislock.home.MainActivity;
 import com.wcsn.irislock.login.bean.AdminInfo;
-import com.wcsn.irislock.login.bean.UserInfo;
 import com.wcsn.irislock.utils.AssetsUtils;
+import com.wcsn.irislock.utils.DaoUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
-import cn.jpush.android.api.JPushInterface;
 import cn.qqtheme.framework.picker.AddressPicker;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by suiyue on 2016/6/14 0014.
@@ -80,6 +88,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
             AddressPicker picker = new AddressPicker(getUI().getOwnerActivity(), data);
             picker.setHideCounty(hideCounty);
             picker.setSelectedItem(selectedProvince, selectedCity, selectedCounty);
+            picker.setLineColor(Color.GRAY);
             picker.setOnAddressPickListener(new AddressPicker.OnAddressPickListener() {
                 @Override
                 public void onAddressPicked(String province, String city, String county) {
@@ -239,13 +248,23 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
     class SocketThread extends Thread {
 
         private AdminInfo mAdminInfo;
+        /**
+         * 0 表示连接上
+         * 1 发送deviceId
+         * 2 发送用户信息
+         */
+        private int SocketType = 0;
 
         public SocketThread(AdminInfo adminInfo) {
             mAdminInfo = adminInfo;
         }
 
+        private DaoUtils mDaoUtils;
+
         @Override
         public void run() {
+
+            mDaoUtils = DaoUtils.getInstance(getUI().getOwnerActivity().getApplicationContext());
 
             Logger.e("SocketThread");
 
@@ -255,53 +274,120 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI>{
             socketClient.getSocketPacketHelper().setSendHeaderData(null); // 设置发送消息时自动在消息头部添加的信息，远程端收到此信息后表示一条消息开始，用于解决粘包分包问题，若为null则不添加头部信息
             socketClient.getSocketPacketHelper().setSendTrailerString(null);
 
+
+            Gson gson = new Gson();
+            String jsonUserInfo = gson.toJson(mAdminInfo.getUserInfo());
+            final User userInfo = new User();
+            userInfo.setUser_name(mAdminInfo.getName());
+            userInfo.setUser_info(jsonUserInfo);
+            userInfo.setUser_flag("0");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            userInfo.setRegister_time(format.format(new Date()));
+            userInfo.setUser_id("0");
+            userInfo.setValid_time_start("");
+            userInfo.setValid_time_stop("");
+            userInfo.setValid_time_week("");
+            userInfo.setIris_path("/");
+            final String jsonUser = gson.toJson(userInfo);
+
             socketClient.registerSocketClientDelegate(new SocketClientDelegate() {
                 int i = 5;
                 @Override
                 public void onConnected(SocketClient socketClient) {
                     Logger.e("Socket 已连接");
-                    Gson gson = new Gson();
-                    String jsonUserInfo = gson.toJson(mAdminInfo);
-                    UserInfo userInfo = new UserInfo();
-                    userInfo.setUser_name(mAdminInfo.getName());
-                    userInfo.setUser_info(jsonUserInfo);
-                    userInfo.setUser_flag("1");
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    userInfo.setRegister_time(format.format(new Date()));
-                    userInfo.setUser_id("0");
-                    userInfo.setValid_time_start("");
-                    userInfo.setValid_time_stop("");
-                    userInfo.setValid_time_week("");
-                    userInfo.setIris_path("/");
-                    String jsonUser = gson.toJson(userInfo);
-                    SocketPacket packet = socketClient.sendString(SPModel.getDeviceId());
-                    Logger.e("F201" + jsonUser);
-                    packet = socketClient.sendString("F201" + jsonUser);
-                    packet = socketClient.sendString("EXIT");
+                    SocketType = 0;
+                    socketClient.sendString(SPModel.getDeviceId());
                 }
 
                 @Override
                 public void onDisconnected(SocketClient socketClient) {
                     Logger.e("Socket 连接断开");
-                    MainActivity.launch(mActivity);
+                    if (SPModel.getAdmin()) {
+                        MainActivity.launch(mActivity);
+                    } else {
+                        ToastUtils.toastShort("注册失败，请重新操作");
+                        AdminOrVisitorActivity.launch(mActivity);
+                    }
+
                 }
 
                 @Override
                 public void onResponse(SocketClient socketClient, @NonNull SocketResponsePacket socketResponsePacket) {
                     String message = socketResponsePacket.getMessage();
                     if (message == null) {
-                        Logger.e("message 注册 = null");
+                        Logger.e("message = null");
                     } else if (message.equals("success")){
-                        Logger.e("message 注册 = success");
+                        Logger.e("message = success");
+                        switch(SocketType){
+                            case 0:
+                                socketClient.sendString("F201" + jsonUser);
+                                getUI().getRegisterLayout().setVisibility(View.GONE);
+                                getUI().getWaitRegisterLayout().setVisibility(View.VISIBLE);
+                                Random random=new Random();
+                                int time = random.nextInt(4000);
+                                Observable.timer(time, TimeUnit.MILLISECONDS)
+                                        .subscribeOn(Schedulers.computation())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new Action1<Long>() {
+                                            @Override
+                                            public void call(Long aLong) {
+                                               getUI().getText().setText("1");
+                                            }
+                                        });
 
-                        socketClient.disconnect();
+                                time = random.nextInt(4000);
+                                Observable.timer(time, TimeUnit.MILLISECONDS)
+                                        .subscribeOn(Schedulers.computation())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new Action1<Long>() {
+                                            @Override
+                                            public void call(Long aLong) {
+                                                getUI().getText().setText("2");
+                                            }
+                                        });
+
+
+                                SocketType = 1;
+                                break;
+                            case 1:
+                                socketClient.sendString("EXIT");
+
+                                getUI().getText().setText("3");
+                                getUI().getCheck().setChecked(true);
+                                ToastUtils.toastShort("注册成功");
+                                getUI().getRegisterLayout().setVisibility(View.VISIBLE);
+                                getUI().getWaitRegisterLayout().setVisibility(View.GONE);
+
+                                mDaoUtils.saveUser(userInfo);
+
+                                SPModel.putAdmin(true);
+
+                                SocketType = 0;
+                                break;
+                        }
+
                     } else {
-                        Logger.e("message 注册 = " + message);
+                        Logger.e("message = failed");
+                        switch(SocketType){
+                            case 0:
+                                Logger.e("deviceId 无效");
+                                SocketType = 1;
+                                break;
+                            case 1:
+                                socketClient.sendString("EXIT");
+                                getUI().getText().setText("0");
+                                getUI().getCheck().setChecked(false);
+                                ToastUtils.toastShort("注册失败，请重新扫描虹膜");
+                                getUI().getRegisterLayout().setVisibility(View.VISIBLE);
+                                getUI().getWaitRegisterLayout().setVisibility(View.GONE);
+
+                                SPModel.putAdmin(false);
+                                SocketType = 0;
+                                break;
+                        }
                     }
                 }
             });
-
-
             socketClient.connect();
         }
     }

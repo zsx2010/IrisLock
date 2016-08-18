@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:scrollbars="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@color/colorIngigo"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_keyboard_arrow_left_white_18dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_title"
+                android:text="@string/authorization"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/authorizationImage"
+            android:layout_width="278dp"
+            android:layout_height="347dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"/>
+        <LinearLayout
+            android:id="@+id/alreadyAuthorization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_standard"
+                android:text="@string/authorized"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_bg"
+                android:checked="true"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+        
+        <TextView
+            android:id="@+id/takeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_standard"
+            android:textColor="@color/colorIngigo"
+            android:text="@string/address"
+            android:layout_gravity="center_horizontal"
+            />
+        
+        <TextView
+            android:id="@+id/openDoorCountDownText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_date"
+            android:textColor="@color/colorEditText"
+            android:text="@string/address"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            />
+        
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/isOpenDoorView"
+            android:layout_width="45dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/isOpenDoorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/address"
+            android:textColor="@color/colorIngigo"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/button_space"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/acceptButton"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:background="@drawable/bg_button_green"
+                android:layout_centerHorizontal="true"
+                android:text="@string/authorizationOk"
+                android:textColor="@color/colorWhite"/>
+            <TextView
+                android:id="@+id/countDownText"
+                android:layout_toRightOf="@+id/acceptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_standard"
+                android:textColor="@color/colorRed"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+
+
+
+        <Button
+            android:id="@+id/rejectButton"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_button_red"
+            android:text="@string/authorizationCancel"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/authorizationDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_little"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/Red"
+            android:text="@string/authorizationDesc"/>
+    </LinearLayout>
+
+
+</ScrollView>

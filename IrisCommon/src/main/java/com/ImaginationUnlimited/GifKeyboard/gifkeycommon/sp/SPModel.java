@@ -1,12 +1,8 @@
 package com.ImaginationUnlimited.GifKeyboard.gifkeycommon.sp;
 
-import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.entity.User;
+import com.ImaginationUnlimited.GifKeyboard.gifkeycommon.network.entity.AuthorizeInfo;
 import com.ImaginationUnlimited.library.utils.app.StringUtils;
 import com.google.gson.Gson;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * SP存储
@@ -15,17 +11,40 @@ import java.util.ArrayList;
 public class SPModel {
 
     private static final String KEY_DEVICE_ID = "keyDeviceId";
-    private static final String KEY_USER = "keyUser";
-    private static final String KEY_SHUFFLE_LIST = "keyShuffleList";
 
     private static final String KEY_SOCKET_IP = "KeySocketIp";
     private static final String KEY_SOCKET_PORT = "KeySocketPort";
+
+    private static final String KEY_IS_AUTHORIZE = "KeyIsAuthorize";
+    private static final String KEY_AUTHORIZE_INFO = "KeyAuthorizeInfo";
+
+    private static final String KEY_POWER = "KeyPower";
+
+    private static final String KEY_ADMIN = "KeyAdmin";
+
+    private static final String KEY_PWD = "KeyPwd";
+
+    /**
+     * 0:无
+     * 1:数字
+     * 2:图形
+     */
+    private static final String KEY_PWD_TYPE = "KeyPwdType";
+
+
+    public static final int PWD_TYPE_NONE = 0;
+    public static final int PWD_TYPE_NUM = 1;
+    public static final int PWD_TYPE_IMAGE = 2;
 
     private static String socketIp = "192.168.1.1";
     private static int socketPort = 12345;
 
     public static void clean(){
-        putUser(null);
+        putAdmin(false);
+        putDevieceId(null);
+        putPower(null);
+        putIsAuthorize(false);
+        putAuthorize(null);
     }
 
     public static void putDevieceId(String deviceId){
@@ -36,23 +55,64 @@ public class SPModel {
         return SPUtils.getInstance().getString(KEY_DEVICE_ID,"");
     }
 
-    public static String getTokenPerhapsNull(){
-        return SPUtils.getInstance().getString(KEY_DEVICE_ID,null);
+
+    public static void putPwd(String pwd){
+        SPUtils.getInstance().putString(KEY_PWD, pwd);
     }
 
-    public static void putUser(User user){
+    public static String getPwd(){
+        return SPUtils.getInstance().getString(KEY_PWD,"");
+    }
+
+    public static void putPwdType(int pwdTyoe){
+        SPUtils.getInstance().putInt(KEY_PWD_TYPE, pwdTyoe);
+    }
+
+    public static int getPwdType(){
+        return SPUtils.getInstance().getInt(KEY_PWD_TYPE,0);
+    }
+
+
+
+    public static void putPower(String power){
+        SPUtils.getInstance().putString(KEY_POWER, power);
+    }
+
+    public static String getPower(){
+        return SPUtils.getInstance().getString(KEY_POWER,"100");
+    }
+
+
+    public static void putAdmin(boolean hasAdmin) {
+        SPUtils.getInstance().putBoolean(KEY_ADMIN, hasAdmin);
+    }
+
+    public static boolean getAdmin() {
+        return SPUtils.getInstance().getBoolean(KEY_ADMIN, false);
+    }
+
+    public static void putIsAuthorize(boolean isAuthorize) {
+        SPUtils.getInstance().putBoolean(KEY_IS_AUTHORIZE, isAuthorize);
+    }
+
+    public static boolean getIsAuthorize() {
+        return SPUtils.getInstance().getBoolean(KEY_IS_AUTHORIZE, false);
+    }
+
+
+    public static void putAuthorize(AuthorizeInfo authorizeInfo){
         String json = null;
-        if(user != null){
-            json = new Gson().toJson(user);
+        if(authorizeInfo != null){
+            json = new Gson().toJson(authorizeInfo);
         }
-        SPUtils.getInstance().putString(KEY_USER,json);
+        SPUtils.getInstance().putString(KEY_AUTHORIZE_INFO,json);
     }
 
 
-    public static User getUser(){
-        String json = SPUtils.getInstance().getString(KEY_USER,"");
+    public static AuthorizeInfo getAuthorize(){
+        String json = SPUtils.getInstance().getString(KEY_AUTHORIZE_INFO,"");
         if(!StringUtils.isNullOrEmpty(json)){
-            return new Gson().fromJson(json,User.class);
+            return new Gson().fromJson(json,AuthorizeInfo.class);
         }
         return null;
     }
@@ -67,34 +127,5 @@ public class SPModel {
         return json;
     }
 
-    public static void putShuffleList(ArrayList<String> list){
-        if(list != null){
-            String json = new Gson().toJson(list);
-            SPUtils.getInstance().putString(KEY_SHUFFLE_LIST,json);
-        }
-    }
 
-    public static ArrayList<String> getShuffleList(){
-        String json = SPUtils.getInstance().getString(KEY_SHUFFLE_LIST,null);
-        if(StringUtils.isNullOrEmpty(json)){
-            return null;
-        }
-        ArrayList<String> list = new Gson().fromJson(json, new ParameterizedType() {
-            @Override
-            public Type[] getActualTypeArguments() {
-                return new Type[]{String.class};
-            }
-
-            @Override
-            public Type getOwnerType() {
-                return null;
-            }
-
-            @Override
-            public Type getRawType() {
-                return ArrayList.class;
-            }
-        });
-        return list;
-    }
 }

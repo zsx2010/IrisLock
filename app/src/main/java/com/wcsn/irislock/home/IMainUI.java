@@ -10,6 +10,5 @@ public interface IMainUI extends IUI {
     void loadIrisImage(String state);
     void loadInfoImage(String state);
     void loadSafeState(String state);
-    void loadPowerImage(String power);
-    void loadPowerText(String power);
+    void loadPower();
 }

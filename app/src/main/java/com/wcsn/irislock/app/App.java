@@ -16,6 +16,15 @@ import java.util.Random;
  * Created by suiyue on 2016/6/7 0007.
  */
 public class App {
+
+
+    public final static String mWifiName = "wifi_lock";
+
+
+
+
+
+
     /**
      * 渠道号 *
      */
