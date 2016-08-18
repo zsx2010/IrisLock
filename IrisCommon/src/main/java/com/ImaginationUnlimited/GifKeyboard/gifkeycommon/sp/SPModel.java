@@ -22,6 +22,20 @@ public class SPModel {
 
     private static final String KEY_ADMIN = "KeyAdmin";
 
+    private static final String KEY_PWD = "KeyPwd";
+
+    /**
+     * 0:无
+     * 1:数字
+     * 2:图形
+     */
+    private static final String KEY_PWD_TYPE = "KeyPwdType";
+
+
+    public static final int PWD_TYPE_NONE = 0;
+    public static final int PWD_TYPE_NUM = 1;
+    public static final int PWD_TYPE_IMAGE = 2;
+
     private static String socketIp = "192.168.1.1";
     private static int socketPort = 12345;
 
@@ -40,6 +54,25 @@ public class SPModel {
     public static String getDeviceId(){
         return SPUtils.getInstance().getString(KEY_DEVICE_ID,"");
     }
+
+
+    public static void putPwd(String pwd){
+        SPUtils.getInstance().putString(KEY_PWD, pwd);
+    }
+
+    public static String getPwd(){
+        return SPUtils.getInstance().getString(KEY_PWD,"");
+    }
+
+    public static void putPwdType(int pwdTyoe){
+        SPUtils.getInstance().putInt(KEY_PWD_TYPE, pwdTyoe);
+    }
+
+    public static int getPwdType(){
+        return SPUtils.getInstance().getInt(KEY_PWD_TYPE,0);
+    }
+
+
 
     public static void putPower(String power){
         SPUtils.getInstance().putString(KEY_POWER, power);

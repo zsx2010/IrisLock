@@ -236,6 +236,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        Logger.e(ex.toString());
+        Logger.e(thread.getName(), ex.toString());
     }
 }

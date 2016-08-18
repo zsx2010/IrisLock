@@ -64,4 +64,9 @@
     <string name="passwordSetting">密码设置</string>
     <string name="soundSetting">声音设置</string>
     <string name="about">关于</string>
+    <string name="numberPwd">数字解锁</string>
+    <string name="imagePwd">图形解锁</string>
+    <string name="inputPwd">请输入密码</string>
+    <string name="inputPwdAgain">请再次输入密码</string>
+    <string name="inputPwdOld">请输入原密码</string>
 </resources>

@@ -18,4 +18,5 @@
     <color name="colorButtonBar">#343434</color>
     <color name="color_black">#000000</color>
     <color name="line">#dddddd</color>
+    <color name="color_shadow">#66000000</color>
 </resources>
