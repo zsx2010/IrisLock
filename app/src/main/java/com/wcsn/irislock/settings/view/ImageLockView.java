@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -280,13 +279,8 @@ public class ImageLockView extends View {
                 for(Point p: mPointList) {
                     pw += p.getIndex();
                 }
-                if(TextUtils.isEmpty(getPassword())) {
-                    setPassword(pw);
-                    onPatternChangedListener.passwordSetted(pw);
-                } else {
-                    onPatternChangedListener.patternChanged(pw);
-                }
-
+                setPassword(pw);
+                onPatternChangedListener.patternChanged(pw);
             }
         }
     }
@@ -302,7 +296,6 @@ public class ImageLockView extends View {
     public void resetPoints() {
         reset();
         setPassword("");
-        onPatternChangedListener.passwordSetted(getPassword());
         postInvalidate();
     }
 
