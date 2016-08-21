@@ -56,13 +56,17 @@ public class MonitorHolder extends AHolder {
         } else {
             mDeleteImage.setVisibility(View.GONE);
         }
-        String[] ss = s.split(".")[0].split("-");
-        String data = "";
-        for (int i=1; i<ss.length; i++) {
-            data = data + ss[i] + "-";
+        if (s.split(".").length>1) {
+            String[] ss = s.split(".")[0].split("-");
+            String data = "";
+            for (int i=1; i<ss.length; i++) {
+                data = data + ss[i] + "-";
+            }
+            data = data.substring(0, data.length()-1);
+            mPictureDate.setText(data);
         }
-        data = data.substring(0, data.length()-1);
-        mPictureDate.setText(data);
+
+
         String url = RESTfulFactory.getUrlBase() + SPModel.getDeviceId() + "/" + s;
         ImageLoaderFactory.getLoader(mMonitorView).showImage(mMonitorView, url, null);
 
