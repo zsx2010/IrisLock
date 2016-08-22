@@ -100,6 +100,12 @@ public class SettingsActivity extends BaseMVPActivity<SettingsPresenter> impleme
 
         mSoundLayout = finder.find(R.id.soundSetting);
         mAboutLayout = finder.find(R.id.about);
+        mAboutLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AboutActivity.launch(getOwnerActivity());
+            }
+        });
 
         mShadow = finder.find(R.id.shadow);
 
