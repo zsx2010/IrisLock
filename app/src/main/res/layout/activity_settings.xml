@@ -73,15 +73,20 @@
                     android:layout_marginLeft="@dimen/left_margin"
                     android:layout_centerVertical="true"/>
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/wifiArrow"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/arrow_right"
+                    android:scaleType="center"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
 
             <ListView
+                android:id="@+id/WiFiList"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="300dp"
+                android:layout_below="@+id/wifiSetting"
+                android:visibility="gone">
 
             </ListView>
 
@@ -115,9 +120,10 @@
                 android:layout_marginLeft="@dimen/left_margin"
                 android:layout_centerVertical="true"/>
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/arrow_right"
+                android:scaleType="center"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
@@ -150,9 +156,10 @@
                 android:layout_marginLeft="@dimen/left_margin"
                 android:layout_centerVertical="true"/>
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/arrow_right"
+                android:scaleType="center"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
@@ -184,9 +191,10 @@
                 android:layout_marginLeft="@dimen/left_margin"
                 android:layout_centerVertical="true"/>
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/arrow_right"
+                android:scaleType="center"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
