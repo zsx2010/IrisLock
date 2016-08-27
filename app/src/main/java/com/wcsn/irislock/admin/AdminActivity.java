@@ -1,12 +1,20 @@
 package com.wcsn.irislock.admin;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.ImaginationUnlimited.library.app.BaseActivity;
 import com.ImaginationUnlimited.library.app.mvp.BaseMVPActivity;
@@ -15,8 +23,6 @@ import com.ImaginationUnlimited.library.utils.view.ViewFinder;
 import com.wcsn.irislock.R;
 import com.wcsn.irislock.app.adapter.PagerAdapter;
 import com.wcsn.irislock.utils.view.RecycleViewDivider;
-
-import cn.qqtheme.framework.picker.OptionPicker;
 
 /**
  * Created by suiyue on 2016/7/7 0007.
@@ -60,28 +66,66 @@ public class AdminActivity extends BaseMVPActivity<AdminPresenter>
         mAddUserView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OptionPicker picker = new OptionPicker(AdminActivity.this, new String[]{"永久用户", "临时用户"});
-                picker.setOffset(1);
-                picker.setSelectedIndex(1);
-                picker.setTextSize(24);
-                picker.setLineColor(Color.GRAY);
-                picker.setTitleText("添加用户");
-                picker.setOnOptionPickListener(new OptionPicker.OnOptionPickListener() {
-                    @Override
-                    public void onOptionPicked(String option) {
-                        if (option.equals("永久用户")) {
-                            FixedUserActivity.launch(AdminActivity.this);
-                        } else {
-                            TempUserActivity.launch(AdminActivity.this);
-                        }
-                    }
-                });
-                picker.show();
+                chooseUserType(v, getOwnerActivity());
             }
         });
 
         getPresenter().refreshUserList();
 
+    }
+
+    public void chooseUserType(View view, final Activity context) {
+        View contentView = LayoutInflater.from(context).inflate(
+                R.layout.popup_user_type, null);
+        ViewFinder finder = new ViewFinder(contentView);
+
+        TextView fixedUser = finder.find(R.id.fixedUser);
+        TextView tmpUser = finder.find(R.id.tmpUser);
+        TextView cancel = finder.find(R.id.cancel);
+
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+
+
+        fixedUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FixedUserActivity.launch(AdminActivity.this);
+                popupWindow.dismiss();
+            }
+        });
+
+        tmpUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TempUserActivity.launch(AdminActivity.this);
+                popupWindow.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                popupWindow.dismiss();
+
+            }
+        });
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+            }
+        });
     }
 
     @Override
