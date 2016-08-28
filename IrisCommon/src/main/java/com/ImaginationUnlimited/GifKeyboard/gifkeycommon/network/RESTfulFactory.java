@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RESTfulFactory {
     //FIXME check me please
-    public static final String URL_BASE = "http://10.103.25.127/:8080/IrisLockWeb/";
+    public static final String URL_BASE = "http://10.103.25.127:8080/IrisLockWeb/";
     // 天气预报url
     public static final String WEATHER = "http://wthrcdn.etouch.cn/weather_mini?city=";
     //百度定位

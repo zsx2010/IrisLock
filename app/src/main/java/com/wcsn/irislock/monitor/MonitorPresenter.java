@@ -31,7 +31,6 @@ public class MonitorPresenter extends BasePresenter<IMonitorUI>{
                     public void onSuccess(ResponseStringList responseStringList) {
                         List<String> monitor = responseStringList.getData().getList();
                         getUI().getAdapter().updateList(monitor);
-
                     }
 
                     @Override

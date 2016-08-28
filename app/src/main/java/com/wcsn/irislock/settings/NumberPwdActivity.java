@@ -24,6 +24,8 @@ import com.wcsn.irislock.R;
  */
 public class NumberPwdActivity extends BaseActivity {
 
+    private static final String IS_CHANGE_MODEL = "changeModel";
+
     private TextView mHintText;
     private EditText mFirstEdit;
     private EditText mSecondEdit;
@@ -32,9 +34,16 @@ public class NumberPwdActivity extends BaseActivity {
 
     private ImageView mBack;
 
+    private boolean mChangeModel;
+
 
     public static void launch(BaseActivity activity){
+        launch(activity, false);
+    }
+
+    public static void launch(BaseActivity activity, boolean changeModel){
         Intent intent = new Intent(activity,NumberPwdActivity.class);
+        intent.putExtra(IS_CHANGE_MODEL, changeModel);
         activity.startActivity(intent);
     }
 
@@ -64,6 +73,8 @@ public class NumberPwdActivity extends BaseActivity {
 
         if (SPModel.getPwdType() == SPModel.PWD_TYPE_NUM) {
             mHintText.setText(getResources().getString(R.string.inputPwdOld));
+        } else if (SPModel.getPwdType() == SPModel.PWD_TYPE_IMAGE) {
+            ImagePwdActivity.launch(this,true);
         }
 
         mBack = finder.find(R.id.back);
@@ -78,6 +89,9 @@ public class NumberPwdActivity extends BaseActivity {
         });
 
         mFirstEdit.setFocusable(true);
+
+        mChangeModel = getIntent().getBooleanExtra(IS_CHANGE_MODEL, false);
+
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
@@ -143,7 +157,7 @@ public class NumberPwdActivity extends BaseActivity {
                     } else {
                         String pwd = mFirstEdit.getText().toString() + mSecondEdit.getText().toString()
                                 +mThirdEdit.getText().toString() + mFourthEdit.getText().toString();
-                        if (pwd.equals(SPModel.getPwd())) {
+                        if (pwd.equals(SPModel.getPwd()) && !mChangeModel) {
                             mHintText.setText(getResources().getString(R.string.inputPwd));
                             mFourthEdit.clearFocus();
                             mFirstEdit.requestFocus();
@@ -151,7 +165,13 @@ public class NumberPwdActivity extends BaseActivity {
                             mSecondEdit.setText("");
                             mThirdEdit.setText("");
                             mFourthEdit.setText("");
-                        } else {
+                        } else if (pwd.equals(SPModel.getPwd()) && mChangeModel) {
+
+                            SPModel.putPwdType(SPModel.PWD_TYPE_NONE);
+//                            ImagePwdActivity.launch(getOwnerActivity());
+                            finish();
+
+                        }else {
                             ToastUtils.toastShort("密码错误，请重新输入");
                             mFourthEdit.clearFocus();
                             mFirstEdit.requestFocus();

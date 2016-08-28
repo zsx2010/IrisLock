@@ -52,7 +52,7 @@ public class SPModel {
     }
 
     public static String getDeviceId(){
-        return SPUtils.getInstance().getString(KEY_DEVICE_ID,"");
+        return SPUtils.getInstance().getString(KEY_DEVICE_ID,"2d7c9d7c1c281da13804000000009200108f");
     }
 
 

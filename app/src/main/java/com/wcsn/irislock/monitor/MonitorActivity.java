@@ -183,6 +183,6 @@ public class MonitorActivity extends BaseMVPActivity<MonitorPresenter>
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        Logger.e(ex.toString());
+        Logger.e(getClass().getSimpleName(), ex.toString());
     }
 }
